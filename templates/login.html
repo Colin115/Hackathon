@@ -1,98 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='stylesheets/login.css') }}"
-    />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/login.css') }}" />
     <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 100%;
-            max-width: 400px;
-            margin: 100px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        input[type="text"],
-        input[type="password"],
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4caf50;
-            color: #fff;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
 </head>
 <body>
-  <body>
-    <h1>Login</h1>
-    <form id="loginForm" onsubmit="submitForm(event)">
-      <div class="container">
-        <h2>Login</h2>
-            <input type="text" name="username" placeholder="Username" id = "username" required>
-            <input type="password" name="password" placeholder="Password" id = "password" required>
-            <input type="submit" value="Login">
-      </div>
-    </form>
+    <section>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+        <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span> <span></span>
+    </section>
+    <div class="signin">
+        <div class="content">
+            <h2>Sign In</h2>
+            <div class="form">
+                <div class="inputBox">
+                  <input type="text" name="username" placeholder="Username" id="username" required>
+                </div>
+                <div class="inputBox">
+                  <input type="password" name="password" placeholder="Password" id="password" required>
+                </div>
+                <div class="links">
+                    <a href="/sign_up">Signup</a>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Login">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get form data
+            const formData = {
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value,
+            };
+
+            // Send request
+            fetch("/api/login/", {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success === false) {
+                        alert("Incorrect info");
+                    } else {
+                        // Handle successful login
+                        window.location.href = data.url;
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
+    </script>
 </body>
-  </body>
-
-  <script>
-    function submitForm(event) {
-      event.preventDefault(); // Prevent form submission
-
-      // Get form data
-      const formData = {
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value,
-      };
-
-      // Send request
-      fetch("/api/login/", {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success === false) {
-            alert("Incorrect info");
-          } else {
-            // Handle successful login
-            window.location.href = data.url;
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-    }
-  </script>
 </html>
+
+
+
