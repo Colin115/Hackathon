@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verification Search</title>
+  </head>
+  <body>
+    <h1>Search for an account</h1>
+    <form>
+      <input id="username" placeholder="account username" />
+      <select name="social_media_platform" id="social_media_platform">
+        <option value="default">Select a user</option>
+        {% for option in ALLOWED_SOCIALS %}
+        <option value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+      </select>
+      <button onclick="searchUser(event)">Search</button>
+    </form>
+  </body>
+
+  <script>
+    function searchUser(event) {
+      event.preventDefault();
+
+      const searchData = {
+        platform: document.getElementById("social_media_platform").value,
+        username: document.getElementById("username").value,
+      };
+
+      fetch(
+        `/api/search_account_verified/${searchData.username}/${searchData.platform}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === false) {
+            alert("Issue verifying");
+          } else {
+            window.location.href = data.url;
+          }
+        });
+    }
+  </script>
+</html>
