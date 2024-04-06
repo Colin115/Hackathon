@@ -6,19 +6,27 @@
     <title>Verify your identity</title>
   </head>
   <body>
-    <input type="file" id="licenseInput" accept="image/*" />
+    <input type="file" id="licenseInputBack" accept="image/*" />
+
     <br />
+    <input type="file" id="licenseInputFront" accept="image/*" />
+
     <video id="userCamera" width="300" height="200" autoplay muted></video>
     <br />
     <button id="captureButton">Capture Selfie</button>
     <button id="retakeButton" disabled>Retake</button>
+    <button id="submitButton" onclick="submitVerifyID(event)" disabled>
+      Submit
+    </button>
     <img id="capturedImage" style="display: none" />
     <script>
-      const licenseInput = document.getElementById("licenseInput");
+      const licenseInputFront = document.getElementById("licenseInputFront");
+      const licenseInputBack = document.getElementById("licenseInputBack");
       const userCamera = document.getElementById("userCamera");
       const captureButton = document.getElementById("captureButton");
       const retakeButton = document.getElementById("retakeButton");
       const capturedImage = document.getElementById("capturedImage");
+      const submitButton = document.getElementById("submitButton");
 
       captureButton.addEventListener("click", async () => {
         const stream = await navigator.mediaDevices.getUserMedia({
@@ -40,6 +48,7 @@
           userCamera.style.display = "none";
           capturedImage.style.display = "block";
           retakeButton.disabled = false; // Enable retake button
+          submitButton.disabled = false; // Enable submit button
         });
       });
 
@@ -48,7 +57,37 @@
         userCamera.style.display = "block";
         capturedImage.style.display = "none";
         retakeButton.disabled = true; // Disable retake button until next capture
+        submitButton.disabled = true; // Disable submit button until next capture
       });
+
+      function submitVerifyID(event) {
+        event.preventDefault();
+        fetch(capturedImage.src)
+          .then((response) => response.blob())
+          .then((blob) => {
+            const formData = new FormData();
+            formData.append(
+              "front",
+              document.getElementById("licenseInputFront").files[0]
+            );
+            formData.append(
+              "back",
+              document.getElementById("licenseInputBack").files[0]
+            );
+            formData.append("selfie", blob, "selfie.jpg");
+
+            // Send the form data to the server
+            fetch("/api/verify_user_id/", {
+              method: "POST",
+              body: formData,
+            }).catch((error) => {
+              console.log("ERROR");
+            });
+          })
+          .catch((error) => {
+            console.error("Error converting image to Blob:", error);
+          });
+      }
     </script>
   </body>
 </html>

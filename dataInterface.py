@@ -160,6 +160,29 @@ def remove_social_media_account(username, social_username, platform, file_path):
         csv_writer = csv.writer(csvfile)
         csv_writer.writerows(rows)
 
+def updated_verified(username, file_path):
+            # Read existing data from the CSV file
+    rows: list = []
+    row_index = -1
+    with open(file_path, 'r', newline='') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        for i, row in enumerate(csv_reader):
+            if len(row) > 0 and username == row[0]:
+                row_index = i
+            rows.append(row)
+
+    # Check if the row index is valid
+    if row_index == -1:
+        return
+
+    # Add remove specified row based on username
+    if len(rows[row_index]) >= 6:
+        rows[row_index][5] = "True"
+
+    # Write the modified data back to the CSV file
+    with open(file_path, 'w', newline='') as csvfile:
+        csv_writer = csv.writer(csvfile)
+        csv_writer.writerows(rows)
 
 def main():
 

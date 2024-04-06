@@ -1,5 +1,7 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
 from dataInterface import *
+from barcodeReader import *
+import os
 app = Flask(__name__, static_folder='static')
 
 #TODO: CHANGE THIS
@@ -19,11 +21,20 @@ username - username of the person logged in
 #! ALLOWED SOCIALS
 ALLOWED_SOCIALS = {"tinder", "facebook", "instagram"}
 FILE = "./data.csv"
+UPLOAD_FOLDER = "./uploads"
 ###
 ###   MOCK FUNCS TILL THEY DONE
 ###
 
 def verify_identity(path_to_driver_license_front: str, path_to_driver_license_back:str, path_to_selfie:str):
+    dirty_data = get_id_data(path_to_driver_license_back)
+    data = parse_id_data(dirty_data)
+    
+    user_data = read_all_user_select_data_from_csv(FILE, session.get("username"))
+    print(data['fname'].upper(), user_data['fname'].upper(), data['lname'].upper() , data['lname'].upper())
+    if (data['fname'].upper() != user_data['fname'].upper() or data['lname'].upper() != user_data['lname'].upper()):
+        return False
+    
     return True
 
 
@@ -230,7 +241,40 @@ def delete_social_account(username, platform):
 
 @app.route("/api/verify_user_id/", methods=["POST"])
 def verify_user_id():
-    pass
+        # Check if the request contains files
+    if 'front' not in request.files or 'back' not in request.files or 'selfie' not in request.files:
+        return jsonify({"error": "Missing files"}), 400
+
+    ### Process files and Save them    
+    front_file = request.files['front']
+    back_file = request.files['back']
+    selfie_file = request.files['selfie']
+
+    # Save the files to the uploads directory
+    front_path = os.path.join(UPLOAD_FOLDER, front_file.filename)
+    back_path = os.path.join(UPLOAD_FOLDER, back_file.filename)
+    selfie_path = os.path.join(UPLOAD_FOLDER, selfie_file.filename)
+
+    front_file.save(front_path)
+    back_file.save(back_path)
+    selfie_file.save(selfie_path)
+
+    ### Call function to verify identify
+    success = verify_identity(front_path, back_path, selfie_path)
+    
+    ### Delete images
+    os.remove(front_path)
+    os.remove(back_path)
+    os.remove(selfie_path)
+    
+    if success:
+        ### Update database to show verified
+        updated_verified(session.get("username"), FILE)
+        return jsonify({
+            "success": True,
+        }), 200
+    
+    return jsonify({"success": False, "message": "verification failed"}), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
