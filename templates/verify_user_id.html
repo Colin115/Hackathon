@@ -136,7 +136,7 @@
               "back",
               document.getElementById("licenseInputBack").files[0]
             );
-            formData.append("selfie", blob, "selfie.jpg");
+            formData.append("selfie", blob, "selfie.jpeg");
 
             // Send the form data to the server
             fetch("/api/verify_user_id/", {

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
 from dataInterface import *
 from barcodeReader import *
+from face import *
 import os
 app = Flask(__name__, static_folder='static')
 
@@ -26,15 +27,18 @@ UPLOAD_FOLDER = "./uploads"
 ###   MOCK FUNCS TILL THEY DONE
 ###
 
-def verify_identity(path_to_driver_license_front: str, path_to_driver_license_back:str, path_to_selfie:str):
-    dirty_data = get_id_data(path_to_driver_license_back)
+def verify_identity(path_to_driver_license_front: str, path_to_driver_license_back:str, path_to_selfie:  str):
+    
+    '''dirty_data = get_id_data(path_to_driver_license_back)
     data = parse_id_data(dirty_data)
     
     user_data = read_all_user_select_data_from_csv(FILE, session.get("username"))
     print(data['fname'].upper(), user_data['fname'].upper(), data['lname'].upper() , data['lname'].upper())
     if (data['fname'].upper() != user_data['fname'].upper() or data['lname'].upper() != user_data['lname'].upper()):
         return False
-    
+    '''
+    success = compare_faces(path_to_driver_license_front, path_to_selfie)
+    print(success)
     return True
 
 
@@ -263,9 +267,9 @@ def verify_user_id():
     success = verify_identity(front_path, back_path, selfie_path)
     
     ### Delete images
-    os.remove(front_path)
-    os.remove(back_path)
-    os.remove(selfie_path)
+    #os.remove(front_path)
+    #os.remove(back_path)
+    #os.remove(selfie_path)
     
     if success:
         ### Update database to show verified
