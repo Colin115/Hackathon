@@ -1,29 +1,43 @@
-import cv2
+from deepface import DeepFace
 
-def compare_images(image1_path, image2_path, threshold=1000):
-    # Read images
-    img1 = cv2.imread(image1_path)
-    img2 = cv2.imread(image2_path)
-    
-    # Convert images to grayscale
-    gray_img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    gray_img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
-    
-    # Compute Mean Squared Error (MSE)
-    mse = ((gray_img1 - gray_img2) ** 2).mean()
-    
-    return mse < threshold
+
+def compare_faces(image1_path, image2_path):
+    # Perform face verification
+    result = DeepFace.verify(image1_path, image2_path)
+    return result["verified"]
+
+
+    # Check if images are loaded successfully
+    if img1 is None:
+        print(f"Error: Unable to load image from '{image1_path}'")
+        return None
+    elif img2 is None:
+        print(f"Error: Unable to load image from '{image2_path}'")
+        return None
 
 if __name__ == "__main__":
     # Paths to the images
-    image1_path = "image1.jpg"
-    image2_path = "image2.jpg"
-    
-    # Compare images
-    similar = compare_images(image1_path, image2_path)
-    
-    if similar:
-        print("The images are similar.")
+    image1_path = "IMG_7469.jpg"
+    image2_path = "IMG_7471.jpg"
+
+    # Compare faces
+    similar_faces = compare_faces(image1_path, image2_path)
+
+    if similar_faces:
+        print("The faces are similar.")
     else:
-        print("The images are different.")
+        print("The faces are different.")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
