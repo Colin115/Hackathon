@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ fname }} {{ lname }}'s Profile</title>
+  </head>
+  <body>
+    <h1>>{{ fname }} {{ lname }}</h1>
+    <h1>User Information</h1>
+    <p>Username: {{ username }}</p>
+    <p>First Name: {{ fname }}</p>
+    <p>Last Name: {{ lname }}</p>
+    <p>Verified: {{ "Yes" if verified else "No" }}</p>
+    <h2>Social Media Accounts:</h2>
+    <ul>
+      {% for platform, username in social_media.items() %}
+      <li>{{ platform }}: {{ username }}</li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

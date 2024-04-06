@@ -14,6 +14,18 @@ PAGES FOR FRONT
 
 '''
 
+def get_user_data(username):
+    user_data = user_data = {
+    "username": f'{username}',
+    "password": "pass123",
+    "fname": "John",
+    "lname": "Doe",
+    "verified": True,
+    "social_media": {"instagram": "username", "facebook": "fusername", "tinder": "tusername"}
+    }
+
+    return user_data
+
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -44,7 +56,19 @@ def account_verification():
 
 @app.route("/profile/<string:username>")
 def profile(username):
-    return username
+    
+    if not session.get("login"): # if they arent signed in send them to the home page
+        return redirect(url_for("home"))
+    
+    user_data = get_user_data(username) #TODO: get user data from database
+    
+    
+    return render_template("profile.html",
+                           username=user_data["username"],
+                           fname=user_data['fname'],
+                           lname=user_data['lname'],
+                           verified=user_data['verified'],
+                           social_media=user_data['social_media'])
 '''
 
 APIs
@@ -69,6 +93,8 @@ def sign_in():
     #TODO: change this to grab from database
     user_in_database = True
     password_matches = True
+    
+    
     
     if user_in_database and password_matches:
         return jsonify({"success": True, "url": url_for("profile", username=username)})
