@@ -12,12 +12,12 @@ def check_credentials(conn, username, password):
     if row:
         hashed_password = row[0]
         #check if password matches hashed password
-        if bcrypt.checkpw(password.encode('uft-8'), hashed_password):
+        if bcrypt.checkpw(password.encode('utf-8'), hashed_password):
             return True
         else:
-            return False
+            return None
     else:
-        return None
+        return None  # Return False if username not found
 
 def hash_password(password):
     # Generate a salt and hash the password
@@ -25,29 +25,23 @@ def hash_password(password):
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
     return hashed_password
 
-def read_usernames_and_passwords(database_file):
-    conn = sqlite3.connect(database_file)
-    cursor = conn.cursor()
-    cursor.execute("SELECT username, password FROM users")
-    rows = cursor.fetchall()
-    conn.close()
-    return rows
+def get_username_and_password():
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+    return username, password
 
 def main():
-    database_file = 'data.csv'
+    database_file = 'your_database.db'  # Update with the correct database file path
     conn = connect_to_database(database_file)
-    rows = read_usernames_and_passwords(database_file)
-    for row in rows:
-        username, password = row
-        print("Username:", username)
-        print("Password:", password)
-    check_credentials(conn, username, password)
     username, password = get_username_and_password()
-    hashed_password = hash_password(password)
-    store_username_and_hashed_password(username, hashed_password)
+    if check_credentials(conn, username, password):
+        print("Login successful!")
+    else:
+        print("Invalid username or password.")
     conn.close()
 
 if __name__ == "__main__":
     main()
+
 
 
