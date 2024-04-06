@@ -6,17 +6,68 @@
     <title>{{ fname }} {{ lname }}'s Profile</title>
   </head>
   <body>
-    <h1>>{{ fname }} {{ lname }}</h1>
-    <h1>User Information</h1>
-    <p>Username: {{ username }}</p>
-    <p>First Name: {{ fname }}</p>
-    <p>Last Name: {{ lname }}</p>
-    <p>Verified: {{ "Yes" if verified else "No" }}</p>
-    <h2>Social Media Accounts:</h2>
-    <ul>
-      {% for platform, username in social_media.items() %}
-      <li>{{ platform }}: {{ username }}</li>
-      {% endfor %}
-    </ul>
+    <div>
+      <h1>>{{ fname }} {{ lname }}</h1>
+      <h1>User Information</h1>
+      <p>Username: {{ username }}</p>
+      <p>First Name: {{ fname }}</p>
+      <p>Last Name: {{ lname }}</p>
+      <p>Verified: {{ "Yes" if verified else "No" }}</p>
+      <h2>Social Media Accounts:</h2>
+      <ul>
+        {% for platform, username in social_media.items() %}
+        <li>{{ platform }}: {{ username }}</li>
+        {% endfor %}
+      </ul>
+      <button id="addAccountBtn">Add Account</button>
+    </div>
+    <form id="addAccountForm">
+      <input id="username" placeholder="username" />
+      <select name="social_media_platform" id="social_media_platform">
+        <option value="default">Select a platform</option>
+        {% for option in ALLOWED_SOCIALS %}
+        <option value="{{ option }}">{{ option }}</option>
+        {% endfor %}
+      </select>
+      <button onclick="addNewSocialAccount(event)">Submit</button>
+    </form>
   </body>
+
+  <script>
+    function createNewSocialForm(event) {
+      event.preventDefault();
+
+      // change what the button says
+      if (
+        document.getElementById("addAccountBtn").textContent === "Add Account"
+      ) {
+        document.getElementById("addAccountBtn").textContent = "Cancel";
+        document.getElementById("addAccountForm").removeAttribute("hidden");
+      } else {
+        document.getElementById("addAccountBtn").textContent = "Add Account";
+        document.getElementById("addAccountForm").hidden = "hidden";
+      }
+
+      // display form
+    }
+
+    function addNewSocialAccount(event) {
+      event.preventDefault();
+
+      const formData = {
+        username: document.getElementById("username").value,
+        platform: document.getElementById("social_media_platform").value,
+      };
+      // use api
+      fetch(`/api/add_social/${formData.username}/${formData.platform}/`, {
+        method: "POST",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === false) {
+            alert("WRONG");
+          }
+        });
+    }
+  </script>
 </html>

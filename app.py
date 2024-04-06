@@ -74,13 +74,25 @@ def profile(username):
         return redirect(url_for("home"))
     user_data = read_all_user_select_data_from_csv(FILE, username) #TODO: get user data from database
     
+    social_media_data = user_data['social_media']
+    parsed_data = {}
+    for account in social_media_data:
+        count = 0
+        while len(social_media_data[account]) > 0:
+            if count == 0:
+                parsed_data[account] = social_media_data[account].pop(0)
+            else:
+                parsed_data[f'{account} #{count}'] = social_media_data[account].pop(0)
+            count += 1
+            
     
     return render_template("profile.html",
                            username=user_data["username"],
                            fname=user_data['fname'],
                            lname=user_data['lname'],
                            verified=user_data['verified'],
-                           social_media=user_data['social_media'])
+                           social_media=parsed_data,
+                           ALLOWED_SOCIALS=ALLOWED_SOCIALS)
     
     
 '''
@@ -147,7 +159,6 @@ def search_account(username, platform):
         return jsonify({"error": "not an allowed social media"}), 400
     
     ### check validity of username
-    #TODO: from database function
     actual_username = get_username_from_social(username, platform)
     session["last_searched_user"] = actual_username
     
@@ -157,7 +168,7 @@ def search_account(username, platform):
      
 
 
-@app.route("/api/add_social/<string:username>/<string:platform>")
+@app.route("/api/add_social/<string:username>/<string:platform>", methods=["POST"])
 def add_social_account(username, platform):
     ### make sure they are logged in, have a valid user name, and the platform is one we support
     if not session.get("login"):
@@ -175,7 +186,8 @@ def add_social_account(username, platform):
             return jsonify({"success": False, "message": "account already verified"}), 400
     
     ### add user account to database
-    #TODO implement db
+    add_social_media_account(session.get("username"), username, platform)
+    
     return jsonify({"success": True, "message": "Successfully added the account"})
 
 
