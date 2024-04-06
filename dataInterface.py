@@ -24,6 +24,19 @@ def read_usernames_from_csv(file_path):
                 usernames.add(row[0])  # Assuming the username is in the first column
     return usernames
 
+def read_usernames_passwords_and_social_media_from_csv(file_path):
+    credentials = {}
+    with open(file_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            if len(row) >= 3:  # Check if the row has username, password, and social media account
+                username = row[0]
+                hashed_password = row[1]
+                social_media = row[2]
+                credentials[username] = {'password': hashed_password, 'social_media': social_media}
+    return credentials
+
+
 def read_usernames_and_passwords_from_csv(file_path):
     credentials = {}
     with open(file_path, newline='') as csvfile:
@@ -51,8 +64,22 @@ def check_credentials(username, password, credentials):
     return False
 
 def check_username_and_password(username, password, file_path):
-    credentials = read_usernames_and_passwords_from_csv(file_path)
+    credentials = read_usernames_passwords_and_social_media_from_csv(file_path)
     return check_credentials(username, password, credentials)
+
+def read_usernames_passwords_and_social_media_from_csv(file_path):
+    credentials = {}
+    with open(file_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            if len(row) >= 3:  # Check if the row has username, password, and social media account
+                username = row[0]
+                hashed_password = row[1]
+                social_media = row[2]
+                credentials[username] = {'password': hashed_password, 'social_media': social_media}
+    return credentials
+
+
 
 def main():
 
