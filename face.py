@@ -1,25 +1,29 @@
-import face_recognition
+import cv2
 
-# Load the images
-image1 = face_recognition.load_image_file("image1.jpg")
-image2 = face_recognition.load_image_file("image2.jpg")
+def compare_images(image1_path, image2_path, threshold=1000):
+    # Read images
+    img1 = cv2.imread(image1_path)
+    img2 = cv2.imread(image2_path)
+    
+    # Convert images to grayscale
+    gray_img1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+    gray_img2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+    
+    # Compute Mean Squared Error (MSE)
+    mse = ((gray_img1 - gray_img2) ** 2).mean()
+    
+    return mse < threshold
 
-# Find face locations in each image
-face_locations1 = face_recognition.face_locations(image1)
-face_locations2 = face_recognition.face_locations(image2)
-
-# If there are no faces in either image, they can't be compared
-if len(face_locations1) == 0 or len(face_locations2) == 0:
-    print("No faces found in one or both images.")
-else:
-    # Encode the faces in each image
-    face_encodings1 = face_recognition.face_encodings(image1, face_locations1)
-    face_encodings2 = face_recognition.face_encodings(image2, face_locations2)
-
-    # Compare the first face found in each image
-    match = face_recognition.compare_faces([face_encodings1[0]], face_encodings2[0])
-
-    if match[0]:
-        print("They are the same person")
+if __name__ == "__main__":
+    # Paths to the images
+    image1_path = "image1.jpg"
+    image2_path = "image2.jpg"
+    
+    # Compare images
+    similar = compare_images(image1_path, image2_path)
+    
+    if similar:
+        print("The images are similar.")
     else:
-        print("Different people are present in the images.")
+        print("The images are different.")
+
