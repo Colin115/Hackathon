@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
-import dataInterface
+from dataInterface import *
 app = Flask(__name__, static_folder='static')
 
 #TODO: CHANGE THIS
@@ -18,21 +18,11 @@ username - username of the person logged in
 
 #! ALLOWED SOCIALS
 ALLOWED_SOCIALS = {"tinder", "facebook", "instagram"}
-
+FILE = "./data.csv"
 ###
 ###   MOCK FUNCS TILL THEY DONE
 ###
-def get_user_data(username):
-    user_data = user_data = {
-    "username": f'{username}',
-    "password": "pass123",
-    "fname": "John",
-    "lname": "Doe",
-    "verified": True,
-    "social_media": {"instagram": "username", "facebook": "fusername", "tinder": "tusername"}
-    }
 
-    return user_data
 
 def get_username_from_social(username, platform):
     actual_username = "john"
@@ -72,7 +62,7 @@ def view_profile_verified(username, platform):
     if not session.get("last_searched_user"): # if they havent searched for the user yet
         return redirect(url_for("search_users"))
     
-    user_data = get_user_data(session.get("last_searched_user"))
+    user_data = read_all_user_select_data_from_csv(session.get("last_searched_user"))
     
        
     return render_template("view_verified_account.html", fname=user_data['fname'], lname=user_data['lname'], username=username, platform=platform) 
@@ -80,11 +70,9 @@ def view_profile_verified(username, platform):
 
 @app.route("/profile/<string:username>") #TODO: db stuff
 def profile(username):
-    
     if not session.get("login"): # if they arent signed in send them to the home page
         return redirect(url_for("home"))
-    
-    user_data = get_user_data(username) #TODO: get user data from database
+    user_data = read_all_user_select_data_from_csv(FILE, username) #TODO: get user data from database
     
     
     return render_template("profile.html",
@@ -101,7 +89,7 @@ APIs
 
 '''
 
-@app.route("/api/add_user", methods=["POST"])
+@app.route("/api/add_user/", methods=["POST"])
 def add_user():
     data = request.json
     username = data.get("username")
@@ -113,7 +101,17 @@ def add_user():
     if None in (username, password, fname, lname, email):
         return jsonify({"error": "some forms were not filled out"}), 400
     
+    ## Check if username is already taken
+    if check_username_exists(username, read_usernames_from_csv(FILE)):
+        return jsonify({"success": False,"error": "username already exists"}), 409
     
+    # verify email optional
+    
+    ## add user to database
+    write_usernames_and_passwords_to_csv(FILE,[username, password, fname, lname, email])
+    session['login'] = True
+    session["username"] = username
+    return jsonify({"success": True, "url": url_for("profile", username=username) })
 
 @app.route("/api/login/", methods=["POST"])
 def sign_in():
@@ -128,6 +126,7 @@ def sign_in():
     
     if user_in_database and password_matches:
         session["username"] = username
+        session["login"] = True
         return jsonify({"success": True, "url": url_for("profile", username=session.get("username"))})
     
     return jsonify({'success': False})
@@ -158,7 +157,6 @@ def search_account(username, platform):
     session["last_searched_user"] = actual_username
     
     #return success code
-    print(url_for("view_profile_verified", username=username, platform=platform))
     return jsonify({"success": True, "message": "successfully added the account", "url": url_for("view_profile_verified", username=username, platform=platform)}), 200
     
      
@@ -175,7 +173,7 @@ def add_social_account(username, platform):
         return jsonify({"error": "not an allowed social media"}), 400
     
     ### check if they already have the account registered
-    user_data = get_user_data(username)
+    user_data = read_all_user_select_data_from_csv(FILE, username)
     accounts = user_data.get("social_media")
     if accounts is not None:
         if username in accounts["platform"]:

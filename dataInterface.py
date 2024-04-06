@@ -50,11 +50,11 @@ def check_username_exists(username, usernames):
     return username in usernames
 
 def write_usernames_and_passwords_to_csv(file_path, credentials):
-    with open(file_path, 'w') as csvfile:
+    with open(file_path, 'a', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        for username, password in credentials:
-            hashed_password = hash_password(password)
-            writer.writerow([username, hashed_password])
+        username, password, fname, lname, email = credentials
+        hashed_password = hash_password(password)
+        writer.writerow([username, hashed_password, email, fname, lname, False])
 
 def check_credentials(username, password, credentials):
     if username in credentials:
@@ -79,7 +79,31 @@ def read_usernames_passwords_and_social_media_from_csv(file_path):
                 credentials[username] = {'password': hashed_password, 'social_media': social_media}
     return credentials
 
-
+def read_all_user_select_data_from_csv(file_path, user):
+    with open(file_path, newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            print(row)
+            if (row[0] == user):
+                username = row[0]
+                email = row[2]
+                fname = row[3]
+                lname = row[4]
+                verified = row[5]
+                socials = {}
+                for col in range(6, len(row)):
+                    social = row[col].split(".") # platform.username
+                    if socials.get(social[0]):
+                        socials[social[0]].append(social[1])
+                    else:
+                        socials[social[0]] = [social[1]]
+                if verified == "True":
+                    verified = True
+                else:
+                    verified = False
+                return {'username': username, 'email': email, 'fname': fname, 'lname': lname, 'verified': verified, 'social_media': socials}
+            
+    return None
 
 def main():
 
