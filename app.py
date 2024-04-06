@@ -108,7 +108,7 @@ def add_user():
     # verify email optional
     
     ## add user to database
-    write_usernames_and_passwords_to_csv(FILE,[username, password, fname, lname, email])
+    write_usernames_and_passwords_to_csv(FILE, [username, password, fname, lname, email])
     session['login'] = True
     session["username"] = username
     return jsonify({"success": True, "url": url_for("profile", username=username) })
@@ -118,13 +118,8 @@ def sign_in():
     data = request.json
     username = data.get("username")
     password = data.get("password")
-    
-    #TODO: change this to grab from database
-    user_in_database = True
-    password_matches = True
-        
-    
-    if user_in_database and password_matches:
+                
+    if check_username_and_password(username, password, FILE):
         session["username"] = username
         session["login"] = True
         return jsonify({"success": True, "url": url_for("profile", username=session.get("username"))})

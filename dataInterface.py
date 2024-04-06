@@ -58,7 +58,7 @@ def write_usernames_and_passwords_to_csv(file_path, credentials):
 
 def check_credentials(username, password, credentials):
     if username in credentials:
-        hashed_password = credentials[username]
+        hashed_password = credentials[username]['password']
         if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
             return True
     return False
