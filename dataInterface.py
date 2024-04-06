@@ -25,7 +25,7 @@ def read_usernames_and_passwords_from_csv(file_path):
     return credentials
 
 def write_usernames_and_passwords_to_csv(file_path, credentials):
-    with open(file_path, 'w', '/n') as csvfile:
+    with open(file_path, 'w') as csvfile:
         writer = csv.writer(csvfile)
         for username, password in credentials:
             hashed_password = hash_password(password)
@@ -36,6 +36,8 @@ def main():
     input_file_path = 'data.csv'  # Update with the correct input file path
     output_file_path = 'data.csv'  # Update with the correct output file path
     
+    username = input("Enter username: ")
+    password = input("Enter password: ")
     # Read usernames and passwords from plain CSV
     credentials = read_usernames_and_passwords_from_csv(input_file_path)
     
