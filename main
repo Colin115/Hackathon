@@ -1,0 +1,15 @@
+import sqlite3
+
+connection = splite3.connect('data.csv')
+cursor = connection.cursor()
+
+cursor.exicute("""
+CREATE TABLE IF NOT EXISTS persons (
+  firest_name TEXT,
+  last_name TEXT,
+  age INTEGER
+  )
+""")
+
+connection.commit()
+connection.close()
