@@ -8,12 +8,20 @@ app.secret_key = 'your_secret_key_here'  # Change this to a secure secret key
 
 
 '''
-
-PAGES FOR FRONT
-
+Session info
+last_searched_user - last username on our platform that the user searched for
+login - boolean of if the user is logged in
+username - username of the person logged in
 
 '''
 
+
+#! ALLOWED SOCIALS
+ALLOWED_SOCIALS = {"tinder", "facebook", "instagram"}
+
+###
+###   MOCK FUNCS TILL THEY DONE
+###
 def get_user_data(username):
     user_data = user_data = {
     "username": f'{username}',
@@ -26,6 +34,15 @@ def get_user_data(username):
 
     return user_data
 
+def get_username_from_social(username, platform):
+    actual_username = "john"
+    return actual_username
+'''
+
+PAGES FOR FRONT
+
+
+'''
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -44,15 +61,21 @@ def search_users():
     if not session.get("login"): # if they arent signed in send them to the home page
         return redirect(url_for("home"))
     
-    return "<h1>Search Users</h1>"
+    return render_template("account_search.html", ALLOWED_SOCIALS=ALLOWED_SOCIALS)
 
-@app.route("/view_profile/")
-def account_verification():
+@app.route("/view_profile/<string:username>/<string:platform>")
+def view_profile_verified(username, platform):
     
     if not session.get("login"): # if they arent signed in send them to the home page
         return redirect(url_for("home"))
+    if not session.get("last_searched_user"): # if they havent searched for the user yet
+        return redirect(url_for("search_users"))
     
-    return "<h1>Account verified"
+    user_data = get_user_data(session.get("last_searched_user"))
+    
+    
+    
+    return render_template("view_verified_account.html", fname=user_data['fname'], lname=user_data['lname'], username=username, platform=platform) 
 
 @app.route("/profile/<string:username>")
 def profile(username):
@@ -69,6 +92,8 @@ def profile(username):
                            lname=user_data['lname'],
                            verified=user_data['verified'],
                            social_media=user_data['social_media'])
+    
+    
 '''
 
 APIs
@@ -93,13 +118,14 @@ def sign_in():
     #TODO: change this to grab from database
     user_in_database = True
     password_matches = True
-    
-    
+        
     
     if user_in_database and password_matches:
-        return jsonify({"success": True, "url": url_for("profile", username=username)})
+        session["username"] = username
+        return jsonify({"success": True, "url": url_for("profile", username=session.get("username"))})
     
     return jsonify({'success': False})
+
 
 @app.route("/api/get_user", methods=["GET"])
 def get_user():
@@ -107,9 +133,51 @@ def get_user():
     
     return user_profile
 
-@app.route("/api/search_account")
-def search_account():
-    pass
+
+@app.route("/api/search_account_verified/<string:username>/<string:platform>/")
+def search_account(username, platform):
+    session["last_searched_user"] = None # default the last user to none
+    
+    ### make sure they are logged in, have a valid user name, and the platform is one we support
+    if not session.get("login"):
+        return jsonify({"error": "you must be logged in"}), 400
+    elif not session.get("username"):
+        return jsonify({"error": "no user name"}), 400
+    elif platform not in ALLOWED_SOCIALS:
+        return jsonify({"error": "not an allowed social media"}), 400
+    
+    ### check validity of username
+    #TODO: from database function
+    actual_username = get_username_from_social(username, platform)
+    session["last_searched_user"] = actual_username
+    
+    #return success code
+    print(url_for("view_profile_verified", username=username, platform=platform))
+    return jsonify({"success": True, "message": "successfully added the account", "url": url_for("view_profile_verified", username=username, platform=platform)}), 200
+    
+     
+
+
+@app.route("/api/add_social/<string:username>/<string:platform>")
+def add_social_account(username, platform):
+    ### make sure they are logged in, have a valid user name, and the platform is one we support
+    if not session.get("login"):
+        return jsonify({"error": "you must be logged in"}), 400
+    elif not session.get("username"):
+        return jsonify({"error": "no user name"}), 400
+    elif platform not in ALLOWED_SOCIALS:
+        return jsonify({"error": "not an allowed social media"}), 400
+    
+    ### check if they already have the account registered
+    user_data = get_user_data(username)
+    accounts = user_data.get("social_media")
+    if accounts is not None:
+        if username in accounts["platform"]:
+            return jsonify({"success": False, "message": "account already verified"}), 400
+    
+    ### add user account to database
+    #TODO implement db
+    return jsonify({"success": True, "message": "Successfully added the account"})
 
 
 if __name__ == "__main__":
