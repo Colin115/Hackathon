@@ -25,17 +25,22 @@ def hash_password(password):
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
     return hashed_password
 
-def store_username_and_hashed_password(username, hashed_password):
-    # Here you would typically store the username and hashed password in a database
-    # For demonstration purposes, let's print them
-    print("Username:", username)
-    print("Hashed Password:", hashed_password)
+def read_usernames_and_passwords(database_file):
+    conn = sqlite3.connect(database_file)
+    cursor = conn.cursor()
+    cursor.execute("SELECT username, password FROM users")
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
 
 def main():
     database_file = 'data.csv'
     conn = connect_to_database(database_file)
-    username = input("Enter username: ")
-    password = input("Enter password: ")
+    rows = read_usernames_and_passwords(database_file)
+    for row in rows:
+        username, password = row
+        print("Username:", username)
+        print("Password:", password)
     check_credentials(conn, username, password)
     username, password = get_username_and_password()
     hashed_password = hash_password(password)
