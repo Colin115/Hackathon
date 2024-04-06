@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verify your identity</title>
+  </head>
+  <body>
+    <input type="file" id="licenseInput" accept="image/*" />
+    <br />
+    <video id="userCamera" width="300" height="200" autoplay muted></video>
+    <br />
+    <button id="captureButton">Capture Selfie</button>
+    <button id="retakeButton" disabled>Retake</button>
+    <img id="capturedImage" style="display: none" />
+    <script>
+      const licenseInput = document.getElementById("licenseInput");
+      const userCamera = document.getElementById("userCamera");
+      const captureButton = document.getElementById("captureButton");
+      const retakeButton = document.getElementById("retakeButton");
+      const capturedImage = document.getElementById("capturedImage");
+
+      captureButton.addEventListener("click", async () => {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
+        userCamera.srcObject = stream;
+
+        const canvas = document.createElement("canvas");
+        const context = canvas.getContext("2d");
+
+        captureButton.addEventListener("click", () => {
+          // Capture on each button click
+          canvas.width = userCamera.videoWidth;
+          canvas.height = userCamera.videoHeight;
+          context.drawImage(userCamera, 0, 0);
+          const selfieData = canvas.toDataURL("image/jpeg"); // adjust format as needed
+
+          capturedImage.src = selfieData;
+          userCamera.style.display = "none";
+          capturedImage.style.display = "block";
+          retakeButton.disabled = false; // Enable retake button
+        });
+      });
+
+      retakeButton.addEventListener("click", () => {
+        capturedImage.src = ""; // Clear captured image source
+        userCamera.style.display = "block";
+        capturedImage.style.display = "none";
+        retakeButton.disabled = true; // Disable retake button until next capture
+      });
+    </script>
+  </body>
+</html>

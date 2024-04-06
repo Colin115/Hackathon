@@ -23,10 +23,10 @@ FILE = "./data.csv"
 ###   MOCK FUNCS TILL THEY DONE
 ###
 
+def verify_identity(path_to_driver_license_front: str, path_to_driver_license_back:str, path_to_selfie:str):
+    return True
 
-def get_username_from_social(username, platform):
-    actual_username = "john"
-    return actual_username
+
 '''
 
 PAGES FOR FRONT
@@ -71,7 +71,7 @@ def view_profile_verified(username, platform):
 @app.route("/profile/<string:username>") #TODO: db stuff
 def profile(username):
     if not session.get("login"): # if they arent signed in send them to the home page
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
     user_data = read_all_user_select_data_from_csv(FILE, username) #TODO: get user data from database
     
     social_media_data = user_data['social_media']
@@ -94,6 +94,16 @@ def profile(username):
                            social_media=parsed_data,
                            ALLOWED_SOCIALS=ALLOWED_SOCIALS)
     
+@app.route("/verify_user_id/")
+def verify_user_id_page():
+    if not session.get("login"): # if they arent signed in send them to the home page
+        return redirect(url_for("login"))
+    elif not session.get("username"):
+        return redirect(url_for("login"))
+    
+    
+    
+    return render_template("verify_user_id.html")
     
 '''
 
@@ -159,7 +169,11 @@ def search_account(username, platform):
         return jsonify({"error": "not an allowed social media"}), 400
     
     ### check validity of username
-    actual_username = get_username_from_social(username, platform)
+    actual_username = find_username_from_social_account(username, platform)
+    
+    if actual_username is None:
+        return jsonify({"success": False, "error": "user not found"}), 404
+    
     session["last_searched_user"] = actual_username
     
     #return success code
@@ -213,6 +227,10 @@ def delete_social_account(username, platform):
     
     return jsonify({"success": True})
 
+
+@app.route("/api/verify_user_id/", methods=["POST"])
+def verify_user_id():
+    pass
 
 if __name__ == "__main__":
     app.run(debug=True)

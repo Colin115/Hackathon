@@ -104,6 +104,16 @@ def read_all_user_select_data_from_csv(file_path, user):
             
     return None
 
+def find_username_from_social_account(social_username: str, platform: str, file_path: str):
+    with open(file_path, 'r', newline='') as csvfile:
+        csv_reader = csv.reader(csvfile)
+        for row in csv_reader:
+            if len(row > 6):
+                for i in range(6, len(row)):
+                    if (row[i].split(".")[1] == social_username):
+                        return row[0]
+    return None
+
 def add_social_media_account(username, social_username, platform, file_path):
     # Read existing data from the CSV file
     rows = []
