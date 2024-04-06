@@ -109,6 +109,7 @@
           capturedImage.style.display = "block";
           retakeButton.disabled = false; // Enable retake button
           submitButton.disabled = false; // Enable submit button
+          captureButton.disabled = true; // Enable submit button
         });
       });
 
@@ -118,6 +119,7 @@
         capturedImage.style.display = "none";
         retakeButton.disabled = true; // Disable retake button until next capture
         submitButton.disabled = true; // Disable submit button until next capture
+        captureButton.disabled = false; // Disable submit button until next capture
       });
 
       function submitVerifyID(event) {
