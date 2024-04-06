@@ -31,7 +31,7 @@ def get_username_and_password():
     return username, password
 
 def main():
-    database_file = 'your_database.db'  # Update with the correct database file path
+    database_file = 'data.csv'  # Update with the correct database file path
     conn = connect_to_database(database_file)
     username, password = get_username_and_password()
     if check_credentials(conn, username, password):
