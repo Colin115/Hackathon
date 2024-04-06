@@ -23,8 +23,8 @@ def write_usernames_and_passwords_to_csv(file_path, credentials):
             writer.writerow([username, hashed_password])
 
 def main():
-    input_file_path = 'usernames_passwords_plain.csv'  # Update with the correct input file path
-    output_file_path = 'usernames_passwords_encrypted.csv'  # Update with the correct output file path
+    input_file_path = 'data.csv'  # Update with the correct input file path
+    output_file_path = 'data.csv'  # Update with the correct output file path
     
     # Read usernames and passwords from plain CSV
     credentials = read_usernames_and_passwords_from_csv(input_file_path)
