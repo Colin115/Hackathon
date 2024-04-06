@@ -37,6 +37,7 @@ def verify_identity(path_to_driver_license_front: str, path_to_driver_license_ba
     if (data['fname'].upper() != user_data['fname'].upper() or data['lname'].upper() != user_data['lname'].upper()):
         return False
     '''
+    print(path_to_driver_license_front, path_to_selfie)
     success = compare_faces(path_to_driver_license_front, path_to_selfie)
     print(success)
     return True
@@ -255,9 +256,9 @@ def verify_user_id():
     selfie_file = request.files['selfie']
 
     # Save the files to the uploads directory
-    front_path = os.path.join(UPLOAD_FOLDER, front_file.filename)
-    back_path = os.path.join(UPLOAD_FOLDER, back_file.filename)
-    selfie_path = os.path.join(UPLOAD_FOLDER, selfie_file.filename)
+    front_path = os.path.join(UPLOAD_FOLDER, "front.jpg")
+    back_path = os.path.join(UPLOAD_FOLDER, "back.jpg")
+    selfie_path = os.path.join(UPLOAD_FOLDER, "selfie.jpg")
 
     front_file.save(front_path)
     back_file.save(back_path)
@@ -281,4 +282,4 @@ def verify_user_id():
     return jsonify({"success": False, "message": "verification failed"}), 400
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")

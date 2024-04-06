@@ -69,58 +69,18 @@
       <br />
       <input type="file" id="licenseInputFront" accept="image/*">Front of Drivers License</input>
       <br /><br />
-      <video id="userCamera" width="300" height="200" autoplay muted></video>
+      <input type="file" id="pictureOfPerson" accept="image/*">Picture of Drivers License</input>
       <br /><br />
       <button id="captureButton">Capture Selfie</button>
-      <button id="retakeButton" disabled>Retake</button>
-      <button id="submitButton" onclick="submitVerifyID(event)" disabled>
+      <button id="retakeButton">Retake</button>
+      <button id="submitButton" onclick="submitVerifyID(event)" >
         Submit
       </button>
       <br /><br />
       <img id="capturedImage" style="display: none" />
     </div>
     <script>
-      const licenseInputFront = document.getElementById("licenseInputFront");
-      const licenseInputBack = document.getElementById("licenseInputBack");
-      const userCamera = document.getElementById("userCamera");
-      const captureButton = document.getElementById("captureButton");
-      const retakeButton = document.getElementById("retakeButton");
-      const capturedImage = document.getElementById("capturedImage");
-      const submitButton = document.getElementById("submitButton");
-
-      captureButton.addEventListener("click", async () => {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: true,
-        });
-        userCamera.srcObject = stream;
-
-        const canvas = document.createElement("canvas");
-        const context = canvas.getContext("2d");
-
-        captureButton.addEventListener("click", () => {
-          // Capture on each button click
-          canvas.width = userCamera.videoWidth;
-          canvas.height = userCamera.videoHeight;
-          context.drawImage(userCamera, 0, 0);
-          const selfieData = canvas.toDataURL("image/jpeg"); // adjust format as needed
-
-          capturedImage.src = selfieData;
-          userCamera.style.display = "none";
-          capturedImage.style.display = "block";
-          retakeButton.disabled = false; // Enable retake button
-          submitButton.disabled = false; // Enable submit button
-          captureButton.disabled = true; // Enable submit button
-        });
-      });
-
-      retakeButton.addEventListener("click", () => {
-        capturedImage.src = ""; // Clear captured image source
-        userCamera.style.display = "block";
-        capturedImage.style.display = "none";
-        retakeButton.disabled = true; // Disable retake button until next capture
-        submitButton.disabled = true; // Disable submit button until next capture
-        captureButton.disabled = false; // Disable submit button until next capture
-      });
+     
 
       function submitVerifyID(event) {
         event.preventDefault();
@@ -136,8 +96,11 @@
               "back",
               document.getElementById("licenseInputBack").files[0]
             );
-            formData.append("selfie", blob, "selfie.jpeg");
-
+            //formData.append("selfie", blob, "selfie.jpeg");
+            formData.append(
+              "selfie",
+              document.getElementById("pictureOfPerson").files[0]
+            )
             // Send the form data to the server
             fetch("/api/verify_user_id/", {
               method: "POST",
