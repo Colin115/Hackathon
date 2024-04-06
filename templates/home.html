@@ -1,74 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{{ url_for('static', filename='stylesheets/home.css') }}"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
-    <style>
-      body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-      }
-      header {
-          background-color: #333;
-          color: #fff;
-          padding: 20px;
-          text-align: center;
-      }
-      nav {
-          background-color: #f4f4f4;
-          padding: 10px;
-          text-align: center;
-      }
-      nav a {
-          text-decoration: none;
-          color: #333;
-          padding: 10px;
-      }
-      section {
-          padding: 20px;
-      }
-      footer {
-          background-color: #333;
-          color: #fff;
-          padding: 10px;
-          text-align: center;
-          position: fixed;
-          bottom: 0;
-          width: 100%;
-      }
-  </style>
-  </head>
-  <body>
-    <header>
-      <h1>Identity Solutions</h1>
-    </header>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/login">Login</a>
-      <a href="/sign_up">Sign Up</a>
-    </nav>
-  
-    <section>
-      <h2>About Us</h2>
-      <p>Welcome to Identity Solutions, your premier online destination for secure identity verification and social media account authentication. Our website offers a comprehensive suite of services designed to streamline the process of confirming your identity and verifying your social media presence.
+    <link rel="stylesheet" type="text/css"     href="{{ url_for('static', filename='stylesheets/home.css') }}"
+    >
+</head>
+<body>
 
-        With Identity Solutions, you can securely verify your identity using advanced verification methods, ensuring accuracy and reliability. Additionally, our platform provides a seamless way to authenticate your social media accounts, allowing you to build trust and credibility online.
-        
-        Our website prioritizes user experience, featuring an intuitive interface that makes the verification process straightforward and efficient. We adhere to industry standards and regulatory requirements, ensuring your personal information is handled with the utmost care and compliance.
-        
-        Whether you're conducting online transactions, accessing secure services, or enhancing your social media presence, Identity Solutions is your trusted partner for reliable identity verification and social media authentication. Join us today and experience the convenience and security of Identity Solutions</p>
-    </section>
-  
-    <footer>
-      <p>&copy; 2024 Identity Solutions. All rights reserved.</p>
-    </footer>
-    
-  </body>
+<header>
+    <div class="container">
+        <h1>Home</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign_up">Sign Up</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h2>Identity Solutions</h2>
+        <p>Identity Solutions: Trust, Verify, Connect</p>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>About Us</h2>
+        <div class="feature-item">
+            <img src="{{ url_for('static', filename='IdentitySolutions.png') }}" alt="Feature 1">
+            <p>Welcome to Identity Solutions, your premier online destination for secure identity verification and social media
+              account authentication. Our website offers a comprehensive suite of services designed to streamline the process
+              of confirming your identity and verifying your social media presence.</p>
+        </div>
+        <div class="feature-item">
+            <p>With Identity Solutions, you can securely verify your identity using advanced verification methods, ensuring
+              accuracy and reliability. Additionally, our platform provides a seamless way to authenticate your social media
+              accounts, allowing you to build trust and credibility online.</p>
+        </div>
+        <div class="feature-item">
+            <p>Our website prioritizes user experience, featuring an intuitive interface that makes the verification process
+              straightforward and efficient. We adhere to industry standards and regulatory requirements, ensuring your
+              personal information is handled with the utmost care and compliance.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Website Name. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
 </html>
+
+

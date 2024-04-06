@@ -1,0 +1,129 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f2f2f2;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 10px; /* Reduce padding */
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0; /* Reduce padding */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px; /* Decrease font size */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px; /* Reduce margin */
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px; /* Decrease font size */
+    transition: all 0.3s ease; /* Add transition for hover effect */
+}
+
+nav ul li a:hover {
+    color: #ccc; /* Change color on hover */
+    cursor: pointer; /* Add cursor pointer on hover */
+}
+
+.hero {
+    background-color: #007bff;
+    color: #fff;
+    padding: 80px 0; /* Reduce padding */
+    text-align: center;
+}
+
+.hero h2 {
+    margin-bottom: 15px; /* Reduce margin */
+    font-size: 32px; /* Decrease font size */
+}
+
+.hero p {
+    margin-bottom: 20px; /* Reduce margin */
+    font-size: 16px; /* Decrease font size */
+}
+
+.btn {
+    display: inline-block;
+    background-color: #fff;
+    color: #007bff;
+    padding: 12px 24px; /* Reduce padding */
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px; /* Decrease font size */
+    transition: all 0.3s ease; /* Add transition for hover effect */
+}
+
+.btn:hover {
+    background-color: #ccc;
+    color: #fff;
+}
+
+.features {
+    padding: 80px 0; /* Reduce padding */
+    text-align: center;
+}
+
+.features h2 {
+    margin-bottom: 15px; /* Reduce margin */
+    font-size: 32px; /* Decrease font size */
+}
+
+.feature-item {
+    margin-bottom: 20px; /* Reduce margin */
+}
+
+.feature-item img {
+    width: 100%;
+    max-width: 400px; /* Set max-width for image */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.feature-item h3 {
+    font-size: 24px; /* Decrease font size */
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 16px; /* Decrease font size */
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    font-size: 16px; /* Decrease font size */
+}
+
+
+
