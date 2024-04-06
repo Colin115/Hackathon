@@ -31,20 +31,34 @@ def write_usernames_and_passwords_to_csv(file_path, credentials):
             hashed_password = hash_password(password)
             writer.writerow([username, hashed_password])
 
+def hash_password(password):
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password.decode('utf-8')  # Decode bytes to string
+
+def write_username_and_password_to_csv(file_path, username, password):
+    hashed_password = hash_password(password)
+    with open(file_path, 'a', newline='') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow([username, hashed_password])
+
 def main():
 
-    input_file_path = 'data.csv'  # Update with the correct input file path
-    output_file_path = 'data.csv'  # Update with the correct output file path
+    
+    file_path = 'data.csv'  # Update with the correct input file path
     
     username = input("Enter username: ")
     password = input("Enter password: ")
     # Read usernames and passwords from plain CSV
-    credentials = read_usernames_and_passwords_from_csv(input_file_path)
     
     # Write encrypted usernames and passwords to a new CSV
-    write_usernames_and_passwords_to_csv(output_file_path, credentials)
+    write_username_and_password_to_csv(file_path, username, password)
+    print("Username and password added to", file_path)
     
-    print("Usernames and passwords encrypted and written to:", output_file_path)
+    username = input("Enter username: ")
+    password = input("Enter password: ")
+    credentials = read_usernames_and_passwords_from_csv(file_path)
+    print("Usernames and passwords encrypted and written to:", file_path)
 
     if check_password(username, password, credentials):
         print("Login successful!")
