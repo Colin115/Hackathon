@@ -6,64 +6,80 @@
     <title>Sign Up</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        background-color: #f2f2f2;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+          font-family: Arial, sans-serif;
+          background-color: #f2f2f2;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
       }
+
       .container {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        padding: 40px;
-        width: 300px;
+          background-color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          padding: 40px;
+          width: 300px;
       }
+
       h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
+          text-align: center;
+          margin-bottom: 20px;
+          color: #333;
       }
+
       form {
-        display: flex;
-        flex-direction: column;
+          display: flex;
+          flex-direction: column;
       }
+
       input {
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        transition: border-color 0.3s ease;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          transition: border-color 0.3s ease;
       }
+
       input:focus {
-        border-color: #4caf50;
+          border-color: #4caf50;
       }
+
       button {
-        padding: 12px;
-        background-color: #4caf50;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
+          padding: 12px;
+          background-color: #4caf50;
+          color: #fff;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
       }
+
       button:hover {
-        background-color: #45a049;
+          background-color: #45a049;
+      }
+
+      button:disabled {
+          background-color: #ccc;
+          cursor: not-allowed;
+      }
+
+      button:disabled:hover {
+          background-color: #ccc;
       }
   </style>
   </head>
   <body>
     <h1>Sign Up</h1>
     <form id="signupForm" onsubmit="signUp(event)">
-      <input id="username" name="username" placeholder="username" />
-      <input id="password" name="password" placeholder="password" />
-      <input id="fname" name="fname" placeholder="first name" />
-      <input id="lname" name="lname" placeholder="last name" />
-      <input type="email" name="email" id="email" placeholder="email" />
-      <button>Sign Up</button>
+      <input id="username" name="username" placeholder="username" required/>
+      <input id="password" name="password" placeholder="password" required/>
+      <input id="fname" name="fname" placeholder="first name" required/>
+      <input id="lname" name="lname" placeholder="last name" required/>
+      <input type="email" name="email" id="email" placeholder="email" required />
+      <button id="signupBtn" type="submit">Sign Up</button>
     </form>
   </body>
 
