@@ -16,7 +16,14 @@
       <h2>Social Media Accounts:</h2>
       <ul>
         {% for platform, username in social_media.items() %}
-        <li>{{ platform }}: {{ username }}</li>
+        <li>
+          {{ platform }}: {{ username }}
+          <button
+            onclick="deleteSocialMediaAccount(event, '{{ username }}', '{{ platform }}')"
+          >
+            Delete account
+          </button>
+        </li>
         {% endfor %}
       </ul>
       <button id="addAccountBtn">Add Account</button>
@@ -66,6 +73,24 @@
         .then((data) => {
           if (data.success === false) {
             alert("WRONG");
+          } else {
+            location.reload();
+          }
+        });
+    }
+
+    function deleteSocialMediaAccount(event, username, platform) {
+      event.preventDefault();
+
+      fetch(`/api/delete_social/${username}/${platform}/`, {
+        method: "POST",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === false) {
+            alert("incorrect info");
+          } else {
+            location.reload();
           }
         });
     }

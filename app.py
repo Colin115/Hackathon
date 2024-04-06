@@ -168,7 +168,7 @@ def search_account(username, platform):
      
 
 
-@app.route("/api/add_social/<string:username>/<string:platform>", methods=["POST"])
+@app.route("/api/add_social/<string:username>/<string:platform>/", methods=["POST"])
 def add_social_account(username, platform):
     ### make sure they are logged in, have a valid user name, and the platform is one we support
     if not session.get("login"):
@@ -179,16 +179,39 @@ def add_social_account(username, platform):
         return jsonify({"error": "not an allowed social media"}), 400
     
     ### check if they already have the account registered
-    user_data = read_all_user_select_data_from_csv(FILE, username)
+    user_data = read_all_user_select_data_from_csv(FILE, session.get("username"))
     accounts = user_data.get("social_media")
     if accounts is not None:
-        if username in accounts["platform"]:
+        if accounts.get(platform) is not None and username in accounts.get(platform):
             return jsonify({"success": False, "message": "account already verified"}), 400
     
     ### add user account to database
-    add_social_media_account(session.get("username"), username, platform)
+    add_social_media_account(session.get("username"), username, platform, FILE)
     
     return jsonify({"success": True, "message": "Successfully added the account"})
+
+@app.route("/api/delete_social/<string:username>/<string:platform>/", methods=["POST"])
+def delete_social_account(username, platform):
+    ### make sure they are logged in, have a valid user name, and the platform is one we support
+    print(2)
+    if not session.get("login"):
+        return jsonify({"error": "you must be logged in"}), 401
+    elif not session.get("username"):
+        return jsonify({"error": "no user name"}), 400
+    elif platform not in ALLOWED_SOCIALS:
+        return jsonify({"error": "not an allowed social media"}), 400
+    
+    ### verify account exists
+    user_data = read_all_user_select_data_from_csv(FILE, session.get("username"))
+    accounts = user_data.get("social_media")
+    if accounts is None:
+        return jsonify({"success": False, "error": "account not registered"}), 404
+    if accounts.get(platform) is None or username not in accounts.get(platform):
+        return jsonify({"success": False, "error": "account not registered"}), 404
+    
+    remove_social_media_account(session.get("username"), username, platform, FILE)
+    
+    return jsonify({"success": True})
 
 
 if __name__ == "__main__":
