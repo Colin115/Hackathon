@@ -7,5 +7,43 @@
   </head>
   <body>
     <h1>Sign Up</h1>
+    <form id="signupForm" onsubmit="signUp(event)">
+      <input id="username" name="username" placeholder="username" />
+      <input id="password" name="password" placeholder="password" />
+      <input id="fname" name="fname" placeholder="first name" />
+      <input id="lname" name="lname" placeholder="last name" />
+      <input type="email" name="email" id="email" placeholder="email" />
+      <button>Sign Up</button>
+    </form>
   </body>
+
+  <script>
+    function signUp(event) {
+      event.preventDefault();
+
+      const formData = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        fname: document.getElementById("fname").value,
+        lname: document.getElementById("lname").value,
+        email: document.getElementById("email").value,
+      };
+
+      fetch("/api/add_user/", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === false) {
+            alert("Falty signup");
+          } else {
+            window.location.href = data.url;
+          }
+        });
+    }
+  </script>
 </html>

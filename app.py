@@ -51,6 +51,7 @@ def home():
 def login():
     return render_template("login.html")
 
+
 @app.route("/sign_up/")
 def sign_up():
     return render_template("sign_up.html")
@@ -63,7 +64,7 @@ def search_users():
     
     return render_template("account_search.html", ALLOWED_SOCIALS=ALLOWED_SOCIALS)
 
-@app.route("/view_profile/<string:username>/<string:platform>")
+@app.route("/view_profile/<string:username>/<string:platform>") 
 def view_profile_verified(username, platform):
     
     if not session.get("login"): # if they arent signed in send them to the home page
@@ -73,11 +74,11 @@ def view_profile_verified(username, platform):
     
     user_data = get_user_data(session.get("last_searched_user"))
     
-    
-    
+       
     return render_template("view_verified_account.html", fname=user_data['fname'], lname=user_data['lname'], username=username, platform=platform) 
 
-@app.route("/profile/<string:username>")
+
+@app.route("/profile/<string:username>") #TODO: db stuff
 def profile(username):
     
     if not session.get("login"): # if they arent signed in send them to the home page
@@ -102,15 +103,20 @@ APIs
 
 @app.route("/api/add_user", methods=["POST"])
 def add_user():
-    successful = False
+    data = request.json
+    username = data.get("username")
+    password = data.get("password")
+    fname = data.get("fname")
+    lname = data.get("lname")
+    email = data.get("email")
     
-    if successful:
-        return 500
-    return 200
+    if None in (username, password, fname, lname, email):
+        return jsonify({"error": "some forms were not filled out"}), 400
+    
+    
 
 @app.route("/api/login/", methods=["POST"])
 def sign_in():
-    successful = False
     data = request.json
     username = data.get("username")
     password = data.get("password")
@@ -127,8 +133,8 @@ def sign_in():
     return jsonify({'success': False})
 
 
-@app.route("/api/get_user", methods=["GET"])
-def get_user():
+@app.route("/api/get_user", methods=["GET"]) #TODO: all
+def get_user():                             #? needed?
     user_profile = "profile"
     
     return user_profile
