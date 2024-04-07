@@ -16,6 +16,19 @@ body {
   max-width: 1200px;
   margin: auto;
   padding: 0 10px; /* Reduce padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+header .container {
+  align-items: space-between !important;
+  justify-content: center;
+}
+
+.btn-containter-nav {
+  width: 100%;
 }
 
 .logo {
@@ -101,6 +114,7 @@ nav ul li a:hover {
 
 .feature-item {
   margin-bottom: 20px; /* Reduce margin */
+  max-width: 650px;
 }
 
 .feature-item img {
@@ -161,4 +175,8 @@ img {
   padding: 8px;
   background-color: white;
   color: black;
+}
+
+.feature-item ul li {
+  text-align: left;
 }
