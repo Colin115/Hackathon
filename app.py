@@ -284,6 +284,7 @@ def verify_user_id():
         updated_verified(session.get("username"), FILE)
         return jsonify({
             "success": True,
+            "url": url_for("profile", username=session.get("username"))
         }), 200
     
     return jsonify({"success": False, "message": "verification failed"}), 400
