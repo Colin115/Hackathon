@@ -21,39 +21,28 @@ username - username of the person logged in
 
 #! ALLOWED SOCIALS
 ALLOWED_SOCIALS = {
-    "Badoo", "BeReal", "Bumble", "Discord", "Douban", "Facebook", "Flickr", "Grindr", "Hinge", 
-    "Instagram", "KakaoTalk", "LinkedIn", "Line", "Medium", "Messenger", "OkCupid", 
-    "Pinterest", "QQ", "Quora", "Reddit", "Renren", "Snapchat", "Spotify", "Telegram", 
-    "TikTok", "Tinder", "Tumblr", "Twitter", "Twitch", "VKontakte", "WeChat", "Weibo", 
-    "WhatsApp", "Xing", "YouTube"
+   "BeReal", "Bumble", "Discord", "Facebook", "Hinge", "Instagram", "LinkedIn", 
+   "Pinterest", "Reddit", "Snapchat", "Spotify", "TikTok", "Tinder", "X", "Twitch", "WhatsApp", "YouTube"
 }
 
 LOGO_LINKS = {
   "BeReal": "https://upload.wikimedia.org/wikipedia/en/4/40/BeReal_logo.png",  # Google Images result
-  "Bumble": "https://about.bumble.com/brand-assets/#logos",  # Official website with logo variations
-  "Discord": "https://discord.com/branding",  # Official branding resources including logos
-  "Facebook": "https://brand.facebook.com/resources/logos",  # Official branding resources including logos
-  "Flickr": "https://www.flickr.com/brand/guidelines",  # Official branding resources including logos
-  "Grindr": "https://grindr.com/about/press",  # Press section might have logos
-  "Hinge": "https://hinge.co/about",  # About page might have logos
-  "Instagram": "https://www.instagram.com/about/brand",  # Official branding resources including logos
-  "LinkedIn": "https://brand.linkedin.com/content/dam/brand/linkedin/logos/master/LI-Logo.svg",  # Official logo from LinkedIn branding
-  "Medium": "https://medium.com/introducing-medium-s-new-look",  # Blog post introducing new logo
-  "Messenger": "https://brand.facebook.com/resources/logos",  # Facebook branding includes Messenger logo
-  "OkCupid": "https://www.okcupid.com/about/press",  # Press section might have logos
-  "Pinterest": "https://about.pinterest.com/brand",  # Official branding resources including logos
-  "Quora": "https://www.quora.com/about/press/brand-assets",  # Press section with brand assets including logos
-  "Reddit": "https://about.reddit.com/press/brand-assets",  # Press section with brand assets including logos
-  "Snapchat": "https://www.snap.com/en-US/invest/brand",  # Official branding resources including logos
+  "Bumble": "https://logos-world.net/wp-content/uploads/2021/02/Bumble-Emblem.png",  # Official website with logo variations
+  "Discord": "https://static.vecteezy.com/system/resources/previews/018/930/604/original/discord-logo-discord-icon-transparent-free-png.png",  # Official branding resources including logos
+  "Facebook": "https://www.freeiconspng.com/uploads/facebook-logo-png--impending-10.png",  # Official branding resources including logos
+  "Hinge": "https://pnghq.com/wp-content/uploads/hinge-logo-png-transparent-56901-915x1024.png",  # About page might have logos
+  "Instagram": "https://clipart.info/images/ccovers/1516920567instagram-png-logo-transparent.png",  # Official branding resources including logos
+  "LinkedIn": "https://pngimg.com/uploads/linkedIn/linkedIn_PNG32.png",  # Official logo from LinkedIn branding
+  "Pinterest": "https://www.pngmart.com/files/22/Logo-Pinterest-PNG-Image.png",  # Official branding resources including logos
+  "Reddit": "https://freelogopng.com/images/all_img/1658834095reddit-logo-png.png",  # Press section with brand assets including logos
+  "Snapchat": "https://th.bing.com/th/id/R.8627fc81636fa34ea97292bb048aafb4?rik=hsPD5esBLTqMIg&riu=http%3a%2f%2fpluspng.com%2fimg-png%2flogo-snapchat-png-fichier-logo-snapchat-png-2100.png&ehk=dB6ul954EUyTVZ2dsr5WoEauew8IpFpAi294bE6QviI%3d&risl=&pid=ImgRaw&r=0",  # Official branding resources including logos
   "Spotify": "https://www.spotify.com/us/about/our-company/brand-guidelines/",  # Brand guidelines including logos
-  "TikTok": "https://www.tiktok.com/legal/brand-guidelines",  # Brand guidelines including logos
-  "Tinder": "https://www.tinder.com/press",  # Press section might have logos  # Press section might have logos
-  "Tumblr": "https://www.tumblr.com/about/brand",  # Official branding resources including logos
-  "Twitter": "https://brand.twitter.com/resources/logos",  # Official branding resources including logos
-  "Twitch": "https://www.twitch.tv/p/legal/brand-assets",  # Brand assets including logos
-  "VKontakte": "https://vk.com/about",  # About page might have logos
-  "WhatsApp": "https://whatsapp.com/brand",  # Official branding resources including logos
-  "YouTube": "https://brand.youtube.com/guidelines/logos",  # Official branding resources including logos
+  "TikTok": "https://www.logopng.com.br/logos/tiktok-115.png",  # Brand guidelines including logos
+  "Tinder": "https://static.vecteezy.com/system/resources/previews/021/460/423/original/tinder-logo-transparent-free-png.png",  # Press section might have logos  # Press section might have logos
+  "X": "https://www.freepnglogos.com/uploads/twitter-x-logo-png/twitter-x-logo-png-9.png",  # Official branding resources including logos
+  "Twitch": "https://static.vecteezy.com/system/resources/previews/018/930/502/large_2x/twitch-logo-twitch-icon-transparent-free-png.png",  # Brand assets including logos
+  "WhatsApp": "https://pngimg.com/uploads/whatsapp/whatsapp_PNG5.png",  # Official branding resources including logos
+  "YouTube": "https://www.freeiconspng.com/uploads/hd-youtube-logo-png-transparent-background-20.png",  # Official branding resources including logos
 }
 
 
@@ -309,7 +298,6 @@ def verify_user_id():
     back_file.save(back_path)
     selfie_file.save(selfie_path)
 
-    ### Call function to verify identify
     success = verify_identity(front_path, back_path, selfie_path)
     
     ### Delete images
