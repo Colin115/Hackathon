@@ -251,3 +251,33 @@ button {
   width: 50px; /* Adjust width as needed */
   height: 50px; /* Adjust height as needed */
 }
+
+
+.user-container {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1{
+  color: #007bff;
+  font-size: 3.2rem;
+  margin-bottom: 20px;
+}
+h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+p {
+    margin-bottom: 15px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+strong {
+    font-weight: bold;
+}
