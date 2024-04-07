@@ -49,6 +49,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/sign_up">Sign Up</a></li>
         </ul>
+        <button onclick="logout(event)">Logout</button>
     </nav>
 </header>
 <main>
@@ -94,6 +95,7 @@
         });
     }
 </script>
+<script src="{{ url_for('static', filename='helpful.js') }}"></script>
 </body>
 </html>
 
