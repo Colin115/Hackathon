@@ -14,15 +14,18 @@
     <header>
       <div class="container">
         <h1>Home</h1>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/sign_up">Sign Up</a></li>
-            <li><a id="profileLink" href="/">Profile</a></li>
-            <li><a href="/check_username/">Search Profile</a></li>
-          </ul>
-        </nav>
+        <div>
+          <nav>
+            <ul>
+              <li><a href="/">Home</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/sign_up">Sign Up</a></li>
+              <li><a id="profileLink" href="/">Profile</a></li>
+              <li><a href="/check_username/">Search Profile</a></li>
+            </ul>
+          </nav>
+          <button onclick="logout(event)">Logout</button>
+        </div>
       </div>
     </header>
 
@@ -77,4 +80,18 @@
     </footer>
   </body>
   <script src="{{ url_for('static', filename='helpful.js') }}"></script>
+  <script>
+    function logout(event) {
+      event.preventDefault();
+
+      fetch("/api/logout", {
+        method: "POST",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert("Successfully logged out");
+          window.location.href = "/";
+        });
+    }
+  </script>
 </html>

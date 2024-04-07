@@ -296,6 +296,15 @@ def getProfileLink():
     
     return jsonify({"url": url_for("login")}), 200
     
+    
+@app.route("/api/logout/", methods=["POST"])
+def logout():
+    session["login"] = False
+    session["username"] = None
+    session["last_searched_user"] = None
+    
+    return jsonify({"success": True}), 200
+    
         
 
 
