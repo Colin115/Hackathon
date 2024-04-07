@@ -69,47 +69,100 @@
       <br />
       <input type="file" id="licenseInputFront" accept="image/*">Front of Drivers License</input>
       <br /><br />
-      <input type="file" id="pictureOfPerson" accept="image/*">Picture of Drivers License</input>
+      <input type="file" id="pictureOfPerson" accept="image/*">Picture of You</input>
       <br /><br />
-      <button id="captureButton">Capture Selfie</button>
-      <button id="retakeButton">Retake</button>
-      <button id="submitButton" onclick="submitVerifyID(event)" >
-        Submit
+      <video id="videoElement" autoplay></video>
+      <br /><br />
+      <img id="capturedImage" style="display: none" alt="Captured Image" />
+
+      <button onclick="captureFrame(event)" id="captureButton">
+        Capture Selfie
       </button>
+      <button id="retakeButton">Retake</button>
+      <button id="submitButton" onclick="submitVerifyID(event)">Submit</button>
       <br /><br />
-      <img id="capturedImage" style="display: none" />
     </div>
     <script>
-     function submitVerifyID(event) {
+      // video
+      var video = document.getElementById("videoElement");
+      var captureButton = document.getElementById("captureButton");
+      var capturedImage = document.getElementById("capturedImage");
+      const constraints = {
+          video: {
+              width: { min: 1280 }, // Specify minimum width for higher quality
+              height: { min: 720 }, // Specify minimum height for higher quality
+          }
+      };
+      // Access the user's camera
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(function (stream) {
+          video.srcObject = stream;
+        })
+        .catch(function (error) {
+          console.error("Error accessing the camera:", error);
+        });
+
+      // Function to capture a frame from the video stream
+      function captureFrame(event) {
         event.preventDefault();
-        fetch(capturedImage.src)
-          .then((response) => response.blob())
-          .then((blob) => {
-            const formData = new FormData();
-            formData.append(
-              "front",
-              document.getElementById("licenseInputFront").files[0]
-            );
-            formData.append(
-              "back",
-              document.getElementById("licenseInputBack").files[0]
-            );
-            formData.append(
-              "selfie",
-              document.getElementById("pictureOfPerson").files[0]
-            )
-            // Send the form data to the server
-            fetch("/api/verify_user_id/", {
-              method: "POST",
-              body: formData,
-            }).catch((error) => {
-              console.log("ERROR");
-            });
-          })
-          .catch((error) => {
-            console.error("Error converting image to Blob:", error);
-          });
+        var canvas = document.createElement("canvas");
+        var context = canvas.getContext("2d");
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        capturedImage.src = canvas.toDataURL("image/png");
+        capturedImage.style.display = "block";
+      }
+      ///
+
+      function submitVerifyID(event) {
+        event.preventDefault();
+        var imageData = dataURItoBlob(capturedImage.src);
+
+        const formData = new FormData();
+        formData.append(
+          "front",
+          document.getElementById("licenseInputFront").files[0]
+        );
+        formData.append(
+          "back",
+          document.getElementById("licenseInputBack").files[0]
+        );
+        formData.append("selfie", imageData);
+        // Send the form data to the server
+        fetch("/api/verify_user_id/", {
+          method: "POST",
+          body: formData,
+        }).then((response) => response.json()).then((data) => {
+          if (data.success === false) {
+            alert("Error verifying");
+          }
+          else {
+            window.location.href = getProfileLink();
+          }
+        });
+      }
+
+      function dataURItoBlob(dataURI) {
+        // Convert base64 to raw binary data held in a string
+        var byteString = atob(dataURI.split(",")[1]);
+
+        // Separate the mime component
+        var mimeString = dataURI.split(",")[0].split(":")[1].split(";")[0];
+
+        // Write the bytes of the string to an ArrayBuffer
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+
+        // Create a Blob from the ArrayBuffer
+        return new Blob([ab], { type: mimeString });
       }
     </script>
+    <script src="{{ url_for('static', filename='helpful.js') }}"></script>
+
   </body>
 </html>

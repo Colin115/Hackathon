@@ -58,36 +58,36 @@ h1 {
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0; /* Reduce padding */
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0; /* Reduce padding */
 }
 
 header h1 {
-    margin: 0;
-    font-size: 28px; /* Decrease font size */
+  margin: 0;
+  font-size: 28px; /* Decrease font size */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 15px; /* Reduce margin */
+  display: inline;
+  margin-right: 15px; /* Reduce margin */
 }
 
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px; /* Decrease font size */
-    transition: all 0.3s ease; /* Add transition for hover effect */
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px; /* Decrease font size */
+  transition: all 0.3s ease; /* Add transition for hover effect */
 }
 
 nav ul li a:hover {
-    color: #ccc; /* Change color on hover */
-    cursor: pointer; /* Add cursor pointer on hover */
+  color: #ccc; /* Change color on hover */
+  cursor: pointer; /* Add cursor pointer on hover */
 }
 
 button {
@@ -166,4 +166,19 @@ button {
   float: left; /* Float button to the left */
   margin-top: 5px; /* Add some top margin */
   margin-right: 20px; /* Add space between h1 and logout button */
+}
+
+.btn-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.verifyBtn {
+  background-color: green;
+  width: 10vw;
+  height: 8vh;
+  font-size: 1.2rem;
+  border: #000 solid 1px;
 }

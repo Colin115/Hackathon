@@ -58,9 +58,18 @@
           </select>
           <button onclick="addNewSocialAccount(event)">Submit</button>
         </form>
+
+        {% if verified %}
         <button id="addAccountBtn" onclick="createNewSocialForm(event)">
           Add Account
         </button>
+        {% else %}
+        <div class="btn-container">
+          <a href="/verify_user_id"
+            ><button class="verifyBtn">Verify Yourself</button></a
+          >
+        </div>
+        {% endif %}
       </div>
     </main>
   </body>
