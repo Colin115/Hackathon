@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Verified User</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
       body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+      }
+      main {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -20,11 +29,108 @@
         text-align: center;
         font-size: 24px;
       }
+
+      header .container {
+        display: flex;
+        align-items: space-between !important;
+        justify-content: center;
+        max-width: 1200px;
+        margin: auto;
+        padding: 0 10px; /* Reduce padding */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        text-align: left;
+      }
+
+      .btn-containter-nav {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px 0; /* Reduce padding */
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 28px; /* Decrease font size */
+        text-align: left;
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 16px;
+        margin-bottom: 16px;
+      }
+
+      nav ul li {
+        display: inline;
+        margin-right: 15px; /* Reduce margin */
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 16px; /* Decrease font size */
+        transition: all 0.3s ease; /* Add transition for hover effect */
+      }
+
+      nav ul li a:hover {
+        color: #ccc; /* Change color on hover */
+        cursor: pointer; /* Add cursor pointer on hover */
+      }
+
+      .logout-btn {
+        padding: 8px;
+        background-color: white;
+        color: black;
+        height: auto;
+        width: auto;
+        border-radius: 5px;
+      }
+
+      button {
+        height: 40px;
+        background-color: #000; /* Black button background */
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
     </style>
   </head>
   <body style="background-color: {{ bg_color }};">
-    <h1>
-      {{ fname }} {{ lname }} has verified @{{ username }} on {{ platform }}
-    </h1>
+    <header>
+      <div class="container">
+        <div class="btn-containter-nav">
+          <div>
+            <h1>Check User Identity</h1>
+            <nav>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign_up">Sign Up</a></li>
+                <li><a id="profileLink" href="/">Profile</a></li>
+                <li><a href="/check_username/">Search Profile</a></li>
+              </ul>
+            </nav>
+          </div>
+          <button class="logout-btn" onclick="logout(event)">Logout</button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <h1>
+        {{ fname }} {{ lname }} has verified @{{ username }} on {{ platform }}
+      </h1>
+    </main>
   </body>
 </html>

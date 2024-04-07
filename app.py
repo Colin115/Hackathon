@@ -94,7 +94,7 @@ def sign_up():
 def search_users():
     
     if not session.get("login"): # if they arent signed in send them to the home page
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
     
     return render_template("account_search.html", ALLOWED_SOCIALS=ALLOWED_SOCIALS)
 
@@ -102,7 +102,7 @@ def search_users():
 def view_profile_verified(username, platform):
     
     if not session.get("login"): # if they arent signed in send them to the home page
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
     if not session.get("last_searched_user"): # if they havent searched for the user yet
         return redirect(url_for("search_users"))
     
@@ -112,7 +112,7 @@ def view_profile_verified(username, platform):
         color = "red"
         return render_template("view_verified_account.html", fname="No", lname="One", username=username, platform=platform, bg_color=color) 
     else: 
-        color = "#007bff"
+        color = "#2f64f7"
         return render_template("view_verified_account.html", fname=user_data['fname'], lname=user_data['lname'], username=username, platform=platform, bg_color=color) 
 
 
@@ -335,4 +335,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True)

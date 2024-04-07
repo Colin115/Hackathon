@@ -3,7 +3,7 @@ body {
   padding: 0;
 
   flex-direction: column; /* Ensure elements are stacked vertically */
-  min-height: 100vh;
+
   background-color: #2f64f7; /* Blue background color */
   font-family: Arial, sans-serif;
 }
@@ -14,6 +14,13 @@ header {
   color: #fff;
   padding: 10px 0;
   text-align: center; /* Center the content horizontally */
+}
+
+main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 main .container {
