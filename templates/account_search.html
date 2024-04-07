@@ -1,48 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification Search</title>
-  </head>
-  <body>
+    <style>
+        body {
+            background-color: #2f64f7; /* Blue background color */
+            font-family: Arial, sans-serif;
+            color: white; /* Text color */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input, select {
+            width: 300px;
+            height: 40px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            transition: border-color 0.3s ease;
+            background-color: #fff; /* White input background */
+        }
+
+        input:focus, select:focus {
+            border-color: #4caf50;
+        }
+
+        button {
+            width: 150px;
+            height: 40px;
+            background-color: #000; /* Black button background */
+            color: #fff; /* White button text color */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #333; /* Darker color on hover */
+        }
+
+        /* Styles for the header */
+        header {
+            background-color: #000; /* Black header background color */
+            color: #fff; /* White text color */
+            padding: 10px 0; /* Adjust padding */
+            text-align: center;
+            position: fixed; /* Fixed position */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999; /* Ensure it's above other content */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ccc;
+            cursor: pointer;
+        }
+
+        .logout-button {
+            float: left; /* Float button to the left */
+            margin-top: 5px; /* Add some top margin */
+            margin-left: 10px; /* Add left margin */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Account Search</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign_up">Sign Up</a></li>
+            </ul>
+        </nav>
+        <button onclick="logout(event)" class="logout-button">Logout</button>
+    </header>
+
     <h1>Search for an account</h1>
     <form>
-      <input id="username" placeholder="account username" />
-      <select name="social_media_platform" id="social_media_platform">
-        <option value="default">Select a user</option>
-        {% for option in ALLOWED_SOCIALS %}
-        <option value="{{ option }}">{{ option }}</option>
-        {% endfor %}
-      </select>
-      <button onclick="searchUser(event)">Search</button>
+        <input id="username" placeholder="account username" />
+        <select name="social_media_platform" id="social_media_platform">
+            <option value="default">Select a user</option>
+            {% for option in ALLOWED_SOCIALS %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select>
+        <button onclick="searchUser(event)">Search</button>
     </form>
-  </body>
 
-  <script>
-    function searchUser(event) {
-      event.preventDefault();
+    <script>
+        function searchUser(event) {
+            event.preventDefault();
 
-      const searchData = {
-        platform: document.getElementById("social_media_platform").value,
-        username: document.getElementById("username").value,
-      };
+            const searchData = {
+                platform: document.getElementById("social_media_platform").value,
+                username: document.getElementById("username").value,
+            };
 
-      fetch(
-        `/api/search_account_verified/${searchData.username}/${searchData.platform}`,
-        {
-          method: "GET",
+            fetch(
+                `/api/search_account_verified/${searchData.username}/${searchData.platform}`,
+                {
+                    method: "GET",
+                }
+            )
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.success === false) {
+                    alert("Issue verifying");
+                } else {
+                    window.location.href = data.url;
+                }
+            });
         }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success === false) {
-            alert("Issue verifying");
-          } else {
-            window.location.href = data.url;
-          }
-        });
-    }
-  </script>
-  <script src="{{ url_for('static', filename='helpful.js') }}"></script>
+    </script>
+    <script src="{{ url_for('static', filename='helpful.js') }}"></script>
+</body>
 </html>
+
