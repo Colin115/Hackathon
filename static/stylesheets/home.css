@@ -29,6 +29,8 @@ header .container {
 
 .btn-containter-nav {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logo {

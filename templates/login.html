@@ -1,177 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login Page</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/login.css') }}">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-        }
-
-        header {
-            position: fixed; /* Fixed position to keep it at the top */
-            top: 0; /* Position at the top of the viewport */
-            width: 100%; /* Full width */
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-            z-index: 999; /* Ensure it's above other content */
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 28px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        nav ul li {
-            display: inline;
-            margin-right: 15px;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .container {
-            max-width: 400px; /* Set maximum width */
-            margin: 80px auto 0; /* Margin from the top to leave space for the fixed header */
-            padding: 20px;
-            box-sizing: border-box;
-            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-            border-radius: 10px;
-            box-shadow: 5px 20px 50px #000;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        input, input[type="submit"] {
-            height: 40px;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            transition: border-color 0.3s ease;
-            background-color: #fff; /* White input background */
-            box-sizing: border-box; /* Include padding and border in the width */
-            width: 100%; /* Set width to fill the container */
-        }
-
-        input:focus {
-            border-color: #4caf50;
-        }
-
-        button {
-            height: 40px;
-            background-color: #000; /* Black button background */
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #333; /* Darker color on hover */
-        }
-
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        button:disabled:hover {
-            background-color: #ccc;
-        }
-    </style>
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheets/login.css') }}"
+    />
+  </head>
+  <body>
     <header>
-        <h1>Login</h1>
-        <nav>
-            <ul>
+      <div class="container">
+        <div class="btn-containter-nav">
+          <div>
+            <h1>Home</h1>
+            <nav>
+              <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/login">Login</a></li>
                 <li><a href="/sign_up">Sign Up</a></li>
                 <li><a id="profileLink" href="/">Profile</a></li>
                 <li><a href="/check_username/">Search Profile</a></li>
-            </ul>
-        </nav>
-        <button onclick="logout(event)" class="logout-button">Logout</button>
+              </ul>
+            </nav>
+          </div>
+          <button class="logout-btn" onclick="logout(event)">Logout</button>
+        </div>
+      </div>
     </header>
-
-    <div class="container">
+    <main>
+      <div class="container">
         <form id="loginForm" onsubmit="submitForm(event)">
-            <div class="form-group">
-                <input type="text" name="username" id="username" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" id="password" placeholder="Password" required>
-            </div>
-            <input type="submit" value="Login">
+          <div class="form-group">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <button class="submit-btn" type="submit" value="Login">Login</button>
         </form>
-    </div>
+      </div>
+    </main>
 
     <script>
-        function submitForm(event) {
-            event.preventDefault(); // Prevent form submission
+      function submitForm(event) {
+        event.preventDefault(); // Prevent form submission
 
-            // Get form data
-            const formData = {
-                username: document.getElementById("username").value,
-                password: document.getElementById("password").value,
-            };
+        // Get form data
+        const formData = {
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value,
+        };
 
-            // Send request
-            fetch("/api/login/", {
-                method: "POST",
-                body: JSON.stringify(formData),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.success === false) {
-                        alert("Incorrect info");
-                    } else {
-                        // Handle successful login
-                        window.location.href = data.url;
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        }
+        // Send request
+        fetch("/api/login/", {
+          method: "POST",
+          body: JSON.stringify(formData),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success === false) {
+              alert("Incorrect info");
+            } else {
+              // Handle successful login
+              window.location.href = data.url;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
     </script>
     <script src="{{ url_for('static', filename='helpful.js') }}"></script>
-</body>
+  </body>
 </html>
-
-
-
-
-
-
-
-
-

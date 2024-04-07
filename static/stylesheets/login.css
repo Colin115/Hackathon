@@ -1,117 +1,240 @@
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    font-family: 'Jost', sans-serif;
-    background-color: #2f64f7; /* Blue background color */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: "Jost", sans-serif;
+  background-color: #2f64f7; /* Blue background color */
 }
 
 h1 {
-    color: white;
-    margin-bottom: 10px;
+  color: white;
+  margin-bottom: 10px;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0; /* Reduce padding */
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0; /* Reduce padding */
 }
 
 header h1 {
-    margin: 0;
-    font-size: 28px; /* Decrease font size */
+  margin: 0;
+  font-size: 28px; /* Decrease font size */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 15px; /* Reduce margin */
+  display: inline;
+  margin-right: 15px; /* Reduce margin */
 }
 
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px; /* Decrease font size */
-    transition: all 0.3s ease; /* Add transition for hover effect */
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px; /* Decrease font size */
+  transition: all 0.3s ease; /* Add transition for hover effect */
 }
 
 nav ul li a:hover {
-    color: #ccc; /* Change color on hover */
-    cursor: pointer; /* Add cursor pointer on hover */
+  color: #ccc; /* Change color on hover */
+  cursor: pointer; /* Add cursor pointer on hover */
 }
 
-.container {
-    width: 350px;
-    height: auto;
-    background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px #000;
+main .container {
+  width: 350px;
+  height: auto;
+  background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
 }
 
 form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 input {
-    width: 100%;
-    height: 40px;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    transition: border-color 0.3s ease;
-    background-color: #fff; /* White input background */
+  width: 100%;
+  height: 40px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  background-color: #fff; /* White input background */
 }
 
 input:focus {
-    border-color: #4caf50;
+  border-color: #4caf50;
 }
 
 button {
-    height: 40px;
-    background-color: #000; /* Black button background */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  height: 40px;
+  background-color: #000; /* Black button background */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .logout-button {
-    float: left; /* Float button to the left */
-    margin-top: 5px; /* Add some top margin */
-    margin-right: 20px; /* Add space between h1 and logout button */
+  float: left; /* Float button to the left */
+  margin-top: 5px; /* Add some top margin */
+  margin-right: 20px; /* Add space between h1 and logout button */
 }
 
 button {
-    width: 100%;
-    height: 40px;
-    background-color: #000; /* Black button background */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  height: 40px;
+  background-color: #000; /* Black button background */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #333; /* Darker color on hover */
+  background-color: #333; /* Darker color on hover */
 }
 
 button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+  background-color: #ccc;
+  cursor: not-allowed;
 }
 
 button:disabled:hover {
-    background-color: #ccc;
+  background-color: #ccc;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  position: fixed; /* Fixed position to keep it at the top */
+  top: 0; /* Position at the top of the viewport */
+  width: 100%; /* Full width */
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  z-index: 999; /* Ensure it's above other content */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+  color: #ccc;
+  cursor: pointer;
+}
+
+.btn-containter-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .container {
+  display: flex;
+  align-items: space-between !important;
+  justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px; /* Reduce padding */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: left;
+}
+
+.logout-btn {
+  padding: 8px;
+  background-color: white;
+  color: black;
+  width: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+input[type="submit"] {
+  height: 40px;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  transition: border-color 0.3s ease;
+  background-color: #fff; /* White input background */
+  box-sizing: border-box; /* Include padding and border in the width */
+  width: 100%; /* Set width to fill the container */
+}
+
+input:focus {
+  border-color: #4caf50;
+}
+
+button {
+  height: 40px;
+  background-color: #000; /* Black button background */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #333; /* Darker color on hover */
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  background-color: #ccc;
+}
+
+.submit-btn {
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.05rem;
 }
