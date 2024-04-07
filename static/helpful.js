@@ -11,3 +11,16 @@ function getProfileLink() {
 }
 
 window.onload = getProfileLink;
+
+function logout(event) {
+  event.preventDefault();
+
+  fetch("/api/logout", {
+    method: "POST",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Successfully logged out");
+      window.location.href = "/";
+    });
+}

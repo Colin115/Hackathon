@@ -80,18 +80,4 @@
     </footer>
   </body>
   <script src="{{ url_for('static', filename='helpful.js') }}"></script>
-  <script>
-    function logout(event) {
-      event.preventDefault();
-
-      fetch("/api/logout", {
-        method: "POST",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          alert("Successfully logged out");
-          window.location.href = "/";
-        });
-    }
-  </script>
 </html>
