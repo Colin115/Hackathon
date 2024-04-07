@@ -6,24 +6,36 @@
     <title>Verification Search</title>
     <style>
         body {
-            background-color: #2f64f7; /* Blue background color */
+            margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
+            background-color: #2f64f7; /* Blue background color */
             color: white; /* Text color */
         }
 
-        h1 {
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
             text-align: center;
         }
 
+        h1 {
+            margin-top: 20px;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
         form {
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: 20px;
         }
 
-        input, select {
-            width: 300px;
+        input, select, button {
+            width: 100%;
+            max-width: 300px;
             height: 40px;
             margin-bottom: 15px;
             padding: 10px;
@@ -38,12 +50,8 @@
         }
 
         button {
-            width: 150px;
-            height: 40px;
             background-color: #000; /* Black button background */
             color: #fff; /* White button text color */
-            border: none;
-            border-radius: 4px;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
@@ -63,61 +71,84 @@
             left: 0;
             width: 100%;
             z-index: 999; /* Ensure it's above other content */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px; /* Reduce padding */
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
         }
 
         nav ul {
             list-style: none;
             padding: 0;
+            margin: 0; /* Remove default margin */
+            display: flex;
+            margin-right: auto; /* Push the content to the left */
         }
 
         nav ul li {
-            display: inline;
             margin-right: 15px;
         }
 
         nav ul li a {
             color: #fff;
             text-decoration: none;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            font-size: 16px; /* Decrease font size */
+            transition: all 0.3s ease; /* Add transition for hover effect */
         }
 
-        nav ul li a:hover {
-            color: #ccc;
-            cursor: pointer;
+       nav ul li a:hover {
+            color: #ccc; /* Change color on hover */
+            cursor: pointer; /* Add cursor pointer on hover */
         }
 
         .logout-button {
-            float: left; /* Float button to the left */
-            margin-top: 5px; /* Add some top margin */
-            margin-left: 10px; /* Add left margin */
+            background-color: transparent; /* Transparent background */
+            color: #fff; /* White text color */
+            border: none; /* Remove border */
+            cursor: pointer;
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        .logout-button:hover {
+            color: #ccc; /* Lighter color on hover */
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Account Search</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/sign_up">Sign Up</a></li>
-            </ul>
-        </nav>
+        <div class="header-content">
+            <h1>Account Search</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/sign_up">Sign Up</a></li>
+                    <li><a id="profileLink" href="/">Profile</a></li>
+                    <li><a href="/check_username/">Search Profile</a></li>
+                </ul>
+            </nav>
+        </div>
         <button onclick="logout(event)" class="logout-button">Logout</button>
     </header>
 
-    <h1>Search for an account</h1>
-    <form>
-        <input id="username" placeholder="account username" />
-        <select name="social_media_platform" id="social_media_platform">
-            <option value="default">Select a user</option>
-            {% for option in ALLOWED_SOCIALS %}
-            <option value="{{ option }}">{{ option }}</option>
-            {% endfor %}
-        </select>
-        <button onclick="searchUser(event)">Search</button>
-    </form>
+    <div class="container">
+        <h1>Search for an account</h1>
+        <form>
+            <input id="username" placeholder="Account Username" />
+            <select name="social_media_platform" id="social_media_platform">
+                <option value="default">Select a User</option>
+                {% for option in ALLOWED_SOCIALS %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <button onclick="searchUser(event)">Search</button>
+        </form>
+    </div>
 
     <script>
         function searchUser(event) {
@@ -147,4 +178,9 @@
     <script src="{{ url_for('static', filename='helpful.js') }}"></script>
 </body>
 </html>
+
+
+
+
+
 
