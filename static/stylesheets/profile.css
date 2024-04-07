@@ -57,6 +57,39 @@ h1 {
   text-align: center;
 }
 
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0; /* Reduce padding */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px; /* Decrease font size */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 15px; /* Reduce margin */
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px; /* Decrease font size */
+    transition: all 0.3s ease; /* Add transition for hover effect */
+}
+
+nav ul li a:hover {
+    color: #ccc; /* Change color on hover */
+    cursor: pointer; /* Add cursor pointer on hover */
+}
+
 button {
   padding: 10px 20px;
   background-color: #000; /* Black button background color */
