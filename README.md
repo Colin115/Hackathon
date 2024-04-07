@@ -1,6 +1,6 @@
 # Hackathon
 
-Hackathon Repository
+Hackathon Repository for Colin Smith and Nathan Rothweiler
 
 ## Inspiration
 
