@@ -1,153 +1,164 @@
 /* Reset CSS */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Global Styles */
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f2f2f2;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f2f2f2;
 }
 
 .container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 10px; /* Reduce padding */
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px; /* Reduce padding */
 }
 
 .logo {
-    width: 100px; /* Adjust width as needed */
-    height: auto; /* Maintain aspect ratio */
+  width: 100px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px 0; /* Reduce padding */
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0; /* Reduce padding */
 }
 
 header h1 {
-    margin: 0;
-    font-size: 28px; /* Decrease font size */
+  margin: 0;
+  font-size: 28px; /* Decrease font size */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
+  list-style: none;
+  padding: 0;
 }
 
 nav ul li {
-    display: inline;
-    margin-right: 15px; /* Reduce margin */
+  display: inline;
+  margin-right: 15px; /* Reduce margin */
 }
 
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 16px; /* Decrease font size */
-    transition: all 0.3s ease; /* Add transition for hover effect */
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px; /* Decrease font size */
+  transition: all 0.3s ease; /* Add transition for hover effect */
 }
 
 nav ul li a:hover {
-    color: #ccc; /* Change color on hover */
-    cursor: pointer; /* Add cursor pointer on hover */
+  color: #ccc; /* Change color on hover */
+  cursor: pointer; /* Add cursor pointer on hover */
 }
 
 .hero {
-    background-color: #007bff;
-    color: #fff;
-    padding: 80px 0; /* Reduce padding */
-    text-align: center;
+  background-color: #007bff;
+  color: #fff;
+  padding: 80px 0; /* Reduce padding */
+  text-align: center;
 }
 
 .hero h2 {
-    margin-bottom: 15px; /* Reduce margin */
-    font-size: 32px; /* Decrease font size */
+  margin-bottom: 15px; /* Reduce margin */
+  font-size: 32px; /* Decrease font size */
 }
 
 .hero p {
-    margin-bottom: 20px; /* Reduce margin */
-    font-size: 16px; /* Decrease font size */
+  margin-bottom: 20px; /* Reduce margin */
+  font-size: 16px; /* Decrease font size */
 }
 
 .btn {
-    display: inline-block;
-    background-color: #fff;
-    color: #007bff;
-    padding: 12px 24px; /* Reduce padding */
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px; /* Decrease font size */
-    transition: all 0.3s ease; /* Add transition for hover effect */
+  display: inline-block;
+  background-color: #fff;
+  color: #007bff;
+  padding: 12px 24px; /* Reduce padding */
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px; /* Decrease font size */
+  transition: all 0.3s ease; /* Add transition for hover effect */
 }
 
 .btn:hover {
-    background-color: #ccc;
-    color: #fff;
+  background-color: #ccc;
+  color: #fff;
 }
 
 .features {
-    padding: 80px 0; /* Reduce padding */
-    text-align: center;
+  padding: 80px 0; /* Reduce padding */
+  text-align: center;
 }
 
 .features h2 {
-    margin-bottom: 15px; /* Reduce margin */
-    font-size: 32px; /* Decrease font size */
+  margin-bottom: 15px; /* Reduce margin */
+  font-size: 32px; /* Decrease font size */
 }
 
 .feature-item {
-    margin-bottom: 20px; /* Reduce margin */
+  margin-bottom: 20px; /* Reduce margin */
 }
 
 .feature-item img {
-    width: 100%;
-    max-width: 400px; /* Set max-width for image */
-    height: auto;
-    margin-bottom: 10px;
+  width: 100%;
+  max-width: 400px; /* Set max-width for image */
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .feature-item h3 {
-    font-size: 24px; /* Decrease font size */
-    margin-bottom: 10px;
+  font-size: 24px; /* Decrease font size */
+  margin-bottom: 10px;
 }
 
 .feature-item p {
-    font-size: 16px; /* Decrease font size */
+  font-size: 16px; /* Decrease font size */
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px 0;
-    text-align: center;
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
 }
 
 footer p {
-    font-size: 16px; /* Decrease font size */
+  font-size: 16px; /* Decrease font size */
 }
 
 button {
-    height: 40px;
-    background-color: #000; /* Black button background */
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  height: 40px;
+  background-color: #000; /* Black button background */
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .logout-button {
-    float: left; /* Float button to the left */
-    margin-top: 5px; /* Add some top margin */
-    margin-right: 20px; /* Add space between h1 and logout button */
+  float: left; /* Float button to the left */
+  margin-top: 5px; /* Add some top margin */
+  margin-right: 20px; /* Add space between h1 and logout button */
 }
 
 img {
-    max-width: 100%;
-    height: auto; /* Ensure the aspect ratio is maintained */
+  max-width: 100%;
+  height: auto; /* Ensure the aspect ratio is maintained */
 }
 
+.btn-containter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  padding: 8px;
+  background-color: white;
+  color: black;
+}

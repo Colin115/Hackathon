@@ -13,18 +13,20 @@
   <body>
     <header>
       <div class="container">
-        <h1>Home</h1>
-        <div>
-          <nav>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/login">Login</a></li>
-              <li><a href="/sign_up">Sign Up</a></li>
-              <li><a id="profileLink" href="/">Profile</a></li>
-              <li><a href="/check_username/">Search Profile</a></li>
-            </ul>
-          </nav>
-          <button onclick="logout(event)">Logout</button>
+        <div class="btn-containter-nav">
+          <div>
+            <h1>Home</h1>
+            <nav>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign_up">Sign Up</a></li>
+                <li><a id="profileLink" href="/">Profile</a></li>
+                <li><a href="/check_username/">Search Profile</a></li>
+              </ul>
+            </nav>
+          </div>
+          <button class="logout-btn" onclick="logout(event)">Logout</button>
         </div>
       </div>
     </header>
