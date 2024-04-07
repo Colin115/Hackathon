@@ -1,63 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
-    <link rel="stylesheet" type="text/css"     href="{{ url_for('static', filename='stylesheets/home.css') }}"
-    >
-</head>
-<body>
-
-<header>
-    <div class="container">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheets/home.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
         <h1>Home</h1>
         <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/login">Login</a></li>
-                <li><a href="/sign_up">Sign Up</a></li>
-            </ul>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/sign_up">Sign Up</a></li>
+            <li><a id="profileLink" href="/">Profile</a></li>
+            <li><a href="/check_username/">Search Profile</a></li>
+          </ul>
         </nav>
-    </div>
-</header>
+      </div>
+    </header>
 
-<section class="hero">
-    <div class="container">
+    <section class="hero">
+      <div class="container">
         <h2>Identity Solutions</h2>
         <p>Identity Solutions: Trust, Verify, Connect</p>
-        <img src="{{ url_for('static', filename='IdentitySolutions.png') }}" alt="Feature 1">
-    </div>
-</section>
+        <img
+          src="{{ url_for('static', filename='IdentitySolutions.png') }}"
+          alt="Feature 1"
+        />
+      </div>
+    </section>
 
-<section class="features">
-    <div class="container">
+    <section class="features">
+      <div class="container">
         <h2>About Us</h2>
         <div class="feature-item">
-            <p>Welcome to Identity Solutions, your premier online destination for secure identity verification and social media
-              account authentication. Our website offers a comprehensive suite of services designed to streamline the process
-              of confirming your identity and verifying your social media presence.</p>
+          <p>
+            Welcome to Identity Solutions, your premier online destination for
+            secure identity verification and social media account
+            authentication. Our website offers a comprehensive suite of services
+            designed to streamline the process of confirming your identity and
+            verifying your social media presence.
+          </p>
         </div>
         <div class="feature-item">
-            <p>With Identity Solutions, you can securely verify your identity using advanced verification methods, ensuring
-              accuracy and reliability. Additionally, our platform provides a seamless way to authenticate your social media
-              accounts, allowing you to build trust and credibility online.</p>
+          <p>
+            With Identity Solutions, you can securely verify your identity using
+            advanced verification methods, ensuring accuracy and reliability.
+            Additionally, our platform provides a seamless way to authenticate
+            your social media accounts, allowing you to build trust and
+            credibility online.
+          </p>
         </div>
         <div class="feature-item">
-            <p>Our website prioritizes user experience, featuring an intuitive interface that makes the verification process
-              straightforward and efficient. We adhere to industry standards and regulatory requirements, ensuring your
-              personal information is handled with the utmost care and compliance.</p>
+          <p>
+            Our website prioritizes user experience, featuring an intuitive
+            interface that makes the verification process straightforward and
+            efficient. We adhere to industry standards and regulatory
+            requirements, ensuring your personal information is handled with the
+            utmost care and compliance.
+          </p>
         </div>
-    </div>
-</section>
+      </div>
+    </section>
 
-<footer>
-    <div class="container">
+    <footer>
+      <div class="container">
         <p>&copy; 2024 Website Name. All rights reserved.</p>
-    </div>
-</footer>
-
-</body>
+      </div>
+    </footer>
+  </body>
+  <script src="{{ url_for('static', filename='helpful.js') }}"></script>
 </html>
-
-

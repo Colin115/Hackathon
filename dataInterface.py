@@ -108,7 +108,7 @@ def find_username_from_social_account(social_username: str, platform: str, file_
     with open(file_path, 'r', newline='') as csvfile:
         csv_reader = csv.reader(csvfile)
         for row in csv_reader:
-            if len(row > 6):
+            if len(row) > 6:
                 for i in range(6, len(row)):
                     if (row[i].split(".")[1] == social_username):
                         return row[0]

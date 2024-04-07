@@ -81,17 +81,21 @@ def view_profile_verified(username, platform):
     if not session.get("last_searched_user"): # if they havent searched for the user yet
         return redirect(url_for("search_users"))
     
-    user_data = read_all_user_select_data_from_csv(session.get("last_searched_user"))
+    user_data = read_all_user_select_data_from_csv(FILE, session.get("last_searched_user"))
     
-       
-    return render_template("view_verified_account.html", fname=user_data['fname'], lname=user_data['lname'], username=username, platform=platform) 
+    if session.get("last_searched_user") == -1:
+        color = "red"
+        return render_template("view_verified_account.html", fname="No", lname="One", username=username, platform=platform, bg_color=color) 
+    else: 
+        color = "#007bff"
+        return render_template("view_verified_account.html", fname=user_data['fname'], lname=user_data['lname'], username=username, platform=platform, bg_color=color) 
 
 
-@app.route("/profile/<string:username>") #TODO: db stuff
+@app.route("/profile/<string:username>")
 def profile(username):
     if not session.get("login"): # if they arent signed in send them to the home page
         return redirect(url_for("login"))
-    user_data = read_all_user_select_data_from_csv(FILE, username) #TODO: get user data from database
+    user_data = read_all_user_select_data_from_csv(FILE, username)
     
     social_media_data = user_data['social_media']
     parsed_data = {}
@@ -188,12 +192,13 @@ def search_account(username, platform):
         return jsonify({"error": "not an allowed social media"}), 400
     
     ### check validity of username
-    actual_username = find_username_from_social_account(username, platform)
+    actual_username = find_username_from_social_account(username, platform, FILE)
     
     if actual_username is None:
-        return jsonify({"success": False, "error": "user not found"}), 404
-    
-    session["last_searched_user"] = actual_username
+        #return jsonify({"success": False, "error": "user not found"}), 404
+        session["last_searched_user"] = -1
+    else:
+        session["last_searched_user"] = actual_username
     
     #return success code
     return jsonify({"success": True, "message": "successfully added the account", "url": url_for("view_profile_verified", username=username, platform=platform)}), 200
@@ -271,9 +276,9 @@ def verify_user_id():
     success = verify_identity(front_path, back_path, selfie_path)
     
     ### Delete images
-    #os.remove(front_path)
-    #os.remove(back_path)
-    #os.remove(selfie_path)
+    os.remove(front_path)
+    os.remove(back_path)
+    os.remove(selfie_path)
     
     if success:
         ### Update database to show verified
@@ -284,5 +289,15 @@ def verify_user_id():
     
     return jsonify({"success": False, "message": "verification failed"}), 400
 
+@app.route("/api/get_profile_link/", methods=["GET"])
+def getProfileLink():
+    if session.get("login") is not None and session.get("username") is not None:
+        return jsonify({"url": url_for("profile", username=session.get("username"))}), 200
+    
+    return jsonify({"url": url_for("login")}), 200
+    
+        
+
+
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True)

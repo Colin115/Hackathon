@@ -1,13 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ fname }} {{ lname }}'s Profile</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/profile.css') }}">
-</head>
-<body>
-    <div class="container">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='stylesheets/profile.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Home</h1>
+        <nav>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/sign_up">Sign Up</a></li>
+            <li><a id="profileLink" href="/">Profile</a></li>
+            <li><a href="/check_username/">Search Profile</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main>
+      <div class="container">
         <h1>{{ fname }} {{ lname }}</h1>
         <h1>User Information</h1>
         <p>Username: {{ username }}</p>
@@ -16,25 +35,70 @@
         <p>Verified: {{ "Yes" if verified else "No" }}</p>
         <h2>Social Media Accounts:</h2>
         <ul>
-            {% for platform, username in social_media.items() %}
-            <li>
-                {{ platform }}: {{ username }}
-                <button onclick="deleteSocialMediaAccount(event, '{{ username }}', '{{ platform }}')">Delete account</button>
-            </li>
-            {% endfor %}
+          {% for platform, username in social_media.items() %}
+          <li>
+            {{ platform }}: {{ username }}
+            <button
+              onclick="deleteSocialMediaAccount(event, '{{ username }}', '{{ platform }}')"
+            >
+              Delete account
+            </button>
+          </li>
+          {% endfor %}
         </ul>
-        <button id="addAccountBtn" onclick="createNewSocialForm(event)">Add Account</button>
-    </div>
-    <form id="addAccountForm" hidden>
-        <input id="username" placeholder="username" />
-        <select name="social_media_platform" id="social_media_platform">
+
+        <form id="addAccountForm" hidden>
+          <input id="username" placeholder="username" />
+          <select name="social_media_platform" id="social_media_platform">
             <option value="default">Select a platform</option>
             {% for option in ALLOWED_SOCIALS %}
             <option value="{{ option }}">{{ option }}</option>
             {% endfor %}
-        </select>
-        <button onclick="addNewSocialAccount(event)">Submit</button>
-    </form>
-</body>
-</html>
+          </select>
+          <button onclick="addNewSocialAccount(event)">Submit</button>
+        </form>
+        <button id="addAccountBtn" onclick="createNewSocialForm(event)">
+          Add Account
+        </button>
+      </div>
+    </main>
+  </body>
 
+  <script>
+    document.getElementById("addAccountBtn").textContent = "Add Account";
+    function createNewSocialForm(event) {
+      event.preventDefault();
+      const btn = document.getElementById("addAccountBtn");
+      const form = document.getElementById("addAccountForm");
+      if (btn.textContent === "Add Account") {
+        btn.textContent = "Cancel";
+        form.removeAttribute("hidden");
+      } else {
+        btn.textContent = "Add Account";
+        form.setAttribute("hidden", "hidden");
+      }
+    }
+
+    function addNewSocialAccount(event) {
+      event.preventDefault();
+
+      const formData = {
+        username: document.getElementById("username").value,
+        platform: document.getElementById("social_media_platform").value,
+      };
+      // use api
+      fetch(`/api/add_social/${formData.username}/${formData.platform}/`, {
+        method: "POST",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success === false) {
+            alert("WRONG");
+          } else {
+            location.reload();
+          }
+        });
+    }
+  </script>
+  <script src="{{ url_for('static', filename='helpful.js') }}"></script>
+</html>
