@@ -29,14 +29,17 @@ UPLOAD_FOLDER = "./uploads"
 
 def verify_identity(path_to_driver_license_front: str, path_to_driver_license_back:str, path_to_selfie:  str):
     
-    '''dirty_data = get_id_data(path_to_driver_license_back)
+    dirty_data = get_id_data(path_to_driver_license_back)
     data = parse_id_data(dirty_data)
     
+    if data == "error":
+        return False
+    
     user_data = read_all_user_select_data_from_csv(FILE, session.get("username"))
-    print(data['fname'].upper(), user_data['fname'].upper(), data['lname'].upper() , data['lname'].upper())
+    print(data['fname'].upper(), user_data['fname'].upper(), data['lname'].upper(), user_data['lname'].upper())
     if (data['fname'].upper() != user_data['fname'].upper() or data['lname'].upper() != user_data['lname'].upper()):
         return False
-    '''
+    
     print(path_to_driver_license_front, path_to_selfie)
     success = compare_faces(path_to_driver_license_front, path_to_selfie)
     print(success)
