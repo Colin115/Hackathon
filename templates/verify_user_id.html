@@ -80,9 +80,7 @@
       <img id="capturedImage" style="display: none" />
     </div>
     <script>
-     
-
-      function submitVerifyID(event) {
+     function submitVerifyID(event) {
         event.preventDefault();
         fetch(capturedImage.src)
           .then((response) => response.blob())
@@ -96,7 +94,6 @@
               "back",
               document.getElementById("licenseInputBack").files[0]
             );
-            //formData.append("selfie", blob, "selfie.jpeg");
             formData.append(
               "selfie",
               document.getElementById("pictureOfPerson").files[0]
