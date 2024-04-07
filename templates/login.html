@@ -50,10 +50,13 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 400px; /* Set maximum width */
             margin: 80px auto 0; /* Margin from the top to leave space for the fixed header */
             padding: 20px;
             box-sizing: border-box;
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+            border-radius: 10px;
+            box-shadow: 5px 20px 50px #000;
         }
 
         form {
@@ -61,8 +64,7 @@
             flex-direction: column;
         }
 
-        input {
-            width: 100%;
+        input, input[type="submit"] {
             height: 40px;
             margin-bottom: 15px;
             padding: 10px;
@@ -70,6 +72,8 @@
             border-radius: 4px;
             transition: border-color 0.3s ease;
             background-color: #fff; /* White input background */
+            box-sizing: border-box; /* Include padding and border in the width */
+            width: 100%; /* Set width to fill the container */
         }
 
         input:focus {
@@ -77,7 +81,6 @@
         }
 
         button {
-            width: 100%;
             height: 40px;
             background-color: #000; /* Black button background */
             color: #fff;
@@ -111,16 +114,16 @@
                 <li><a href="/sign_up">Sign Up</a></li>
             </ul>
         </nav>
-        <button onclick="logout(event)">Logout</button>
+        <button onclick="logout(event)" class="logout-button">Logout</button>
     </header>
 
     <div class="container">
         <form id="loginForm" onsubmit="submitForm(event)">
             <div class="form-group">
-                <input type="text" name="username" id="username" required>
+                <input type="text" name="username" id="username" placeholder="Username" required>
             </div>
             <div class="form-group">
-                <input type="password" name="password" id="password" required>
+                <input type="password" name="password" id="password" placeholder="Password" required>
             </div>
             <input type="submit" value="Login">
         </form>
@@ -161,6 +164,9 @@
     <script src="{{ url_for('static', filename='helpful.js') }}"></script>
 </body>
 </html>
+
+
+
 
 
 
