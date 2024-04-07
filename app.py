@@ -20,7 +20,44 @@ username - username of the person logged in
 
 
 #! ALLOWED SOCIALS
-ALLOWED_SOCIALS = {"tinder", "facebook", "instagram"}
+ALLOWED_SOCIALS = {
+    "Badoo", "BeReal", "Bumble", "Discord", "Douban", "Facebook", "Flickr", "Grindr", "Hinge", 
+    "Instagram", "KakaoTalk", "LinkedIn", "Line", "Medium", "Messenger", "OkCupid", 
+    "Pinterest", "QQ", "Quora", "Reddit", "Renren", "Snapchat", "Spotify", "Telegram", 
+    "TikTok", "Tinder", "Tumblr", "Twitter", "Twitch", "VKontakte", "WeChat", "Weibo", 
+    "WhatsApp", "Xing", "YouTube"
+}
+
+LOGO_LINKS = {
+  "BeReal": "https://upload.wikimedia.org/wikipedia/en/4/40/BeReal_logo.png",  # Google Images result
+  "Bumble": "https://about.bumble.com/brand-assets/#logos",  # Official website with logo variations
+  "Discord": "https://discord.com/branding",  # Official branding resources including logos
+  "Facebook": "https://brand.facebook.com/resources/logos",  # Official branding resources including logos
+  "Flickr": "https://www.flickr.com/brand/guidelines",  # Official branding resources including logos
+  "Grindr": "https://grindr.com/about/press",  # Press section might have logos
+  "Hinge": "https://hinge.co/about",  # About page might have logos
+  "Instagram": "https://www.instagram.com/about/brand",  # Official branding resources including logos
+  "LinkedIn": "https://brand.linkedin.com/content/dam/brand/linkedin/logos/master/LI-Logo.svg",  # Official logo from LinkedIn branding
+  "Medium": "https://medium.com/introducing-medium-s-new-look",  # Blog post introducing new logo
+  "Messenger": "https://brand.facebook.com/resources/logos",  # Facebook branding includes Messenger logo
+  "OkCupid": "https://www.okcupid.com/about/press",  # Press section might have logos
+  "Pinterest": "https://about.pinterest.com/brand",  # Official branding resources including logos
+  "Quora": "https://www.quora.com/about/press/brand-assets",  # Press section with brand assets including logos
+  "Reddit": "https://about.reddit.com/press/brand-assets",  # Press section with brand assets including logos
+  "Snapchat": "https://www.snap.com/en-US/invest/brand",  # Official branding resources including logos
+  "Spotify": "https://www.spotify.com/us/about/our-company/brand-guidelines/",  # Brand guidelines including logos
+  "TikTok": "https://www.tiktok.com/legal/brand-guidelines",  # Brand guidelines including logos
+  "Tinder": "https://www.tinder.com/press",  # Press section might have logos  # Press section might have logos
+  "Tumblr": "https://www.tumblr.com/about/brand",  # Official branding resources including logos
+  "Twitter": "https://brand.twitter.com/resources/logos",  # Official branding resources including logos
+  "Twitch": "https://www.twitch.tv/p/legal/brand-assets",  # Brand assets including logos
+  "VKontakte": "https://vk.com/about",  # About page might have logos
+  "WhatsApp": "https://whatsapp.com/brand",  # Official branding resources including logos
+  "YouTube": "https://brand.youtube.com/guidelines/logos",  # Official branding resources including logos
+}
+
+
+
 FILE = "./data.csv"
 UPLOAD_FOLDER = "./uploads"
 ###
@@ -114,7 +151,8 @@ def profile(username):
                            lname=user_data['lname'],
                            verified=user_data['verified'],
                            social_media=parsed_data,
-                           ALLOWED_SOCIALS=ALLOWED_SOCIALS)
+                           ALLOWED_SOCIALS=ALLOWED_SOCIALS,
+                           LOGO_LINKS=LOGO_LINKS)
     
 @app.route("/verify_user_id/")
 def verify_user_id_page():
@@ -275,9 +313,9 @@ def verify_user_id():
     success = verify_identity(front_path, back_path, selfie_path)
     
     ### Delete images
-    #os.remove(front_path)
-    #os.remove(back_path)
-    #os.remove(selfie_path)
+    os.remove(front_path)
+    os.remove(back_path)
+    os.remove(selfie_path)
     
     if success:
         ### Update database to show verified

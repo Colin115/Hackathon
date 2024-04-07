@@ -13,17 +13,21 @@
   <body>
     <header>
       <div class="container">
-        <h1>Home</h1>
-        <nav>
-          <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/sign_up">Sign Up</a></li>
-            <li><a id="profileLink" href="/">Profile</a></li>
-            <li><a href="/check_username/">Search Profile</a></li>
-          </ul>
-        </nav>
-        <button onclick="logout(event)">Logout</button>
+        <div class="btn-containter-nav">
+          <div>
+            <h1>Home</h1>
+            <nav>
+              <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/sign_up">Sign Up</a></li>
+                <li><a id="profileLink" href="/">Profile</a></li>
+                <li><a href="/check_username/">Search Profile</a></li>
+              </ul>
+            </nav>
+          </div>
+          <button class="logout-btn" onclick="logout(event)">Logout</button>
+        </div>
       </div>
     </header>
     <main>
@@ -36,21 +40,29 @@
         <p>Verified: {{ "Yes" if verified else "No" }}</p>
         <h2>Social Media Accounts:</h2>
         <ul>
-          {% for platform, username in social_media.items() %}
-          <li>
-            {{ platform }}: {{ username }}
+          {% for platform, username in social_media.items() %} {% set link =
+          LOGO_LINKS.get(platform) %} {% if link %}
+          <li class="social-account">
+            <span class="logo-container">
+              <img src="{{ link }}" alt="{{ platform }}" />
+            </span>
+            <span> {{ username }} </span>
             <button
               onclick="deleteSocialMediaAccount(event, '{{ username }}', '{{ platform }}')"
             >
               Delete account
             </button>
           </li>
-          {% endfor %}
+          {% endif %} {% endfor %}
         </ul>
 
         <form id="addAccountForm" hidden>
           <input id="username" placeholder="username" />
-          <select name="social_media_platform" id="social_media_platform">
+          <select
+            class="social-selection"
+            name="social_media_platform"
+            id="social_media_platform"
+          >
             <option value="default">Select a platform</option>
             {% for option in ALLOWED_SOCIALS %}
             <option value="{{ option }}">{{ option }}</option>
@@ -82,9 +94,11 @@
       const form = document.getElementById("addAccountForm");
       if (btn.textContent === "Add Account") {
         btn.textContent = "Cancel";
+        btn.style.backgroundColor = "#f44336";
         form.removeAttribute("hidden");
       } else {
         btn.textContent = "Add Account";
+        btn.style.backgroundColor = "black";
         form.setAttribute("hidden", "hidden");
       }
     }

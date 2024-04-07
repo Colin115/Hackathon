@@ -1,0 +1,195 @@
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0; /* Reduce padding */
+}
+
+header .container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px; /* Reduce padding */
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px; /* Decrease font size */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 15px; /* Reduce margin */
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px; /* Decrease font size */
+  transition: all 0.1s ease; /* Add transition for hover effect */
+}
+
+nav ul li a:hover {
+  color: #ccc; /* Change color on hover */
+  cursor: pointer; /* Add cursor pointer on hover */
+}
+
+.btn-containter-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  padding: 8px;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f8f8;
+  line-height: 1.6;
+}
+
+main .container {
+  max-width: 50%;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.file-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.file-input {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.file-selector {
+  position: absolute;
+  font-size: 1px;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.file-custom {
+  display: inline-block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #555;
+  cursor: pointer;
+}
+
+.file-selector:focus + .file-custom {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.video-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.video-container video {
+  border-radius: 8px;
+  width: 100%;
+}
+
+.capture-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.capture-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.capture-button:hover {
+  background-color: #0056b3;
+}
+
+.captured-image {
+  display: none;
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-group button {
+  width: 30%;
+  padding: 10px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.button-group button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.button-group button:hover {
+  background-color: #0056b3;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+  }
+}
+
+.file-name {
+  color: #555;
+  margin-left: 10px;
+}
