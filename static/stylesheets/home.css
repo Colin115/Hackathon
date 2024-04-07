@@ -8,7 +8,6 @@
 /* Global Styles */
 body {
   font-family: Arial, sans-serif;
-  line-height: 1.6;
   background-color: #f2f2f2;
 }
 
@@ -23,8 +22,17 @@ body {
 }
 
 header .container {
+  display: flex;
   align-items: space-between !important;
   justify-content: center;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 10px; /* Reduce padding */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  text-align: left;
 }
 
 .btn-containter-nav {
@@ -52,6 +60,8 @@ header h1 {
 nav ul {
   list-style: none;
   padding: 0;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 nav ul li {
